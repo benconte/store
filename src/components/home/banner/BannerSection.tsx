@@ -31,10 +31,10 @@ const BannerSection = () => {
                     <small className='text-sm text-[#D0A291] font-semibold pb-3'>
                         Best Sale
                     </small>
-                    <h2 className='font-semibold text-2xl text-gray-900 pb-3'>
+                    <h2 className='font-semibold text-xl md:text-2xl text-gray-900 pb-3'>
                         laptops Max
                     </h2>
-                    <p className='text-sm text-gray-900 w-4/6'>
+                    <p className='text-xs text-gray-900 w-4/6'>
                         From $1699.00 or 64.62/mo.
                     </p>
                 </div>
@@ -42,10 +42,10 @@ const BannerSection = () => {
                     <small className='text-sm text-[#D0A291] font-semibold pb-3'>
                         New Arrival
                     </small>
-                    <h2 className='font-semibold text-2xl text-gray-900 pb-3'>
+                    <h2 className='font-semibold text-xl md:text-2xl text-gray-900 pb-3'>
                         Buy IPad Air
                     </h2>
-                    <p className='text-sm text-gray-900 w-4/6'>
+                    <p className='text-xs text-gray-900 w-4/6'>
                         From $899.00 or $49.62/mo.
                     </p>
                 </div>
@@ -53,10 +53,10 @@ const BannerSection = () => {
                     <small className='text-sm text-[#D0A291] font-semibold pb-3'>
                         Free Engraving
                     </small>
-                    <h2 className='font-semibold text-2xl text-gray-900 pb-3'>
+                    <h2 className='font-semibold text-xl md:text-2xl text-gray-900 pb-3'>
                         Airpods Max
                     </h2>
-                    <p className='text-sm text-gray-900 w-4/6'>
+                    <p className='text-xs text-gray-900 w-4/6'>
                         High Fidelity playback & Ultra-low Distortion
                     </p>
                 </div>
@@ -64,10 +64,10 @@ const BannerSection = () => {
                     <small className='text-sm text-[#D0A291]'>
                         15% OFF
                     </small>
-                    <h2 className='font-semibold text-2xl text-gray-900'>
+                    <h2 className='font-semibold text-xl md:text-2xl text-gray-900'>
                         Smartwatch 9
                     </h2>
-                    <p className='text-sm text-gray-900 w-4/6'>
+                    <p className='text-xs text-gray-900 w-4/6'>
                         Shop the latest band style and colors.
                     </p>
                 </div>
