@@ -33,7 +33,7 @@ export function useCategories() {
             image: "/images/tab.jpg",
         },
         {
-            label: 'Headphones',
+            label: 'Headphone',
             stock: 6,
             image: "/images/headphone.jpg",
         },
