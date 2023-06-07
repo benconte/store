@@ -20,7 +20,8 @@ model User {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
-  wishlist Products[]
+  userIds String[] @db.ObjectId
+  wishlist Products[] @relation(fields: [userIds], references: [id])
 
   accounts Account[]
 }
@@ -61,7 +62,7 @@ model Brand {
 }
 
 model Products {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   price       Float
   discount    Int?
@@ -78,6 +79,6 @@ model Products {
   brandId String @db.ObjectId
   brand   Brand  @relation(fields: [brandId], references: [id])
 
-  wishlistUserId String[] @db.ObjectId
-  wishlistUsers  User     @relation(fields: [wishlistUserId], references: [id])
+  wishlistedByIds String[] @db.ObjectId
+  wishlistedBy   User[]   @relation(fields: [wishlistedByIds], references: [id])
 }
