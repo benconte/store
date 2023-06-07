@@ -3,9 +3,7 @@ import { useCategoryServices } from '@/hooks/useCategoryServices'
 import Image from 'next/image'
 import React from 'react'
 
-type Props = {}
-
-const Categories = (props: Props) => {
+const Categories = () => {
     const services = useCategoryServices()
     const categories = useCategories()
 
