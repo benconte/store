@@ -1,8 +1,9 @@
 'use client'
 
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
 import { FieldErrors, FieldValues, UseFormRegister, SubmitHandler, useForm } from 'react-hook-form';
 import SearchIcon from '@mui/icons-material/Search';
+import axios from 'axios';
 
 interface InputProps {
   id: string;
@@ -30,8 +31,11 @@ const Input: FC<InputProps> = ({
     })
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-
+        axios.post("/api/home", {})
+        .catch(err => console.log(err))
     } 
+
+    
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='flex h-9 w-full items-center'>
         <input 
@@ -42,9 +46,9 @@ const Input: FC<InputProps> = ({
             placeholder={placeholder}
             className='w-full h-full border-none outline-none px-4 rounded-l-md'
         />
-        <div className='h-full rounded-r-md bg-[#F9B96E] flex items-center justify-center px-4'>
+        <button type="submit" className='h-full rounded-r-md bg-[#F9B96E] flex items-center justify-center px-4'>
             <SearchIcon className="w-8 h-8 text-gray-900" />
-        </div>
+        </button>
     </form>
   )
 }

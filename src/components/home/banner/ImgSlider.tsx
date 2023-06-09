@@ -16,7 +16,7 @@ const ImgSlider = () => {
         cssEase: "linear"
     };
     return (
-        <Slider {...settings} className="w-full lg:w-6/12 h-96">
+        <Slider {...settings} className="banner-slider w-full lg:w-6/12 h-96">
             <div className={`h-96 bg-[url('/images/main-banner.jpg')] bg-center bg-no-repeat pt-10 pb-14 rounded-lg px-10 `}>
                 <small className='text-sm text-[#D0A291] font-semibold pb-3'>
                     supercharged for pros.

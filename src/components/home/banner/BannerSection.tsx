@@ -26,7 +26,7 @@ const BannerSection = () => {
         <div className='w-full flex flex-col lg:flex-row gap-5'>
             <ImgSlider />
 
-            <div className='grid grid-cols-2 gap-3'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
                 <div className={`bg-[url('/images/catbanner-01.jpg')] bg-no-repeat bg-center pt-5 pb-14 px-5 rounded-lg`}>
                     <small className='text-sm text-[#D0A291] font-semibold pb-3'>
                         Best Sale

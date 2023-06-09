@@ -9,7 +9,7 @@ const Categories = () => {
 
     return (
         <div className='w-full py-6'>
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 flex-wrap gap-5 my-10'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 flex-wrap gap-5 my-10'>
                 {services.map((service) => (
                     <div key={service.title} className='flex items-center gap-5'>
                         <Image
@@ -27,7 +27,7 @@ const Categories = () => {
                 ))}
             </div>
 
-            <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 px-5 py-8 bg-white rounded-lg shadow-md mb-6">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 px-5 py-8 bg-white rounded-lg shadow-md mb-6">
                 {categories.map((cat) => (
                     <div key={cat.label} className='flex items-center gap-5 mt-5 cursor-pinter'>
                         <div className='flex flex-col flex-grow cursor-pointer'>
