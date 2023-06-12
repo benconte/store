@@ -21,10 +21,3 @@ export async function getProducts() {
         return []
     }
 }
-
-// const products = await prisma.products.findMany({
-//     include: {
-//         category: true,
-//         brand: true,
-//     }
-// });

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -12,7 +12,7 @@ html,
 body,
 :root {
   min-height: 100%;
-  background-color: #F1F0EF;
+  background-color: #f1f0ef;
   box-sizing: border-box;
 }
 
@@ -25,35 +25,47 @@ body,
 }
 
 .banner-slider .slick-dots {
-  bottom: 2px!important;
+  bottom: 2px !important;
 }
 
 .banner-slider .slick-next {
-  right: 6px!important;
+  right: 6px !important;
 }
 
 .banner-slider .slick-prev {
-  left: 6px!important;
+  left: 6px !important;
   z-index: 5;
 }
 
-
 /* products collection slider */
 
-.products-collection .slick-next, .products-collection .slick-prev {
+.products-collection .slick-next,
+.products-collection .slick-prev {
   top: -28px;
   color: #111821;
 }
 
-.products-collection .slick-next::before, .products-collection .slick-prev::before {
+.products-collection .slick-next::before,
+.products-collection .slick-prev::before {
   color: #111821;
 }
 
 .products-collection .slick-next {
-  right: 23px!important;
+  right: 23px !important;
 }
 
 .products-collection .slick-prev {
-  right: 50px!important;
+  right: 50px !important;
   left: auto;
+}
+
+.products-collection .slick-track {
+  display: flex !important;
+}
+.products-collection .slick-slide {
+  height: inherit !important;
+}
+
+.products-collection .slick-slide > div {
+  height: 100%;
 }
