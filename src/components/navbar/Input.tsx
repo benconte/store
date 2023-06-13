@@ -46,7 +46,7 @@ const Input: FC<InputProps> = ({
             placeholder={placeholder}
             className='w-full h-full border-none outline-none px-4 rounded-l-md'
         />
-        <button type="submit" className='h-full rounded-r-md bg-[#F9B96E] flex items-center justify-center px-4'>
+        <button type="submit" className='h-full rounded-r-md bg-[var(--yellow)] flex items-center justify-center px-4'>
             <SearchIcon className="w-8 h-8 text-gray-900" />
         </button>
     </form>

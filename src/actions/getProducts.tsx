@@ -3,7 +3,7 @@ import prisma from "@/libs/prismadb"
 
 export async function getProducts() {
     try {
-        const products = await prisma.products.findMany({
+        const products = await prisma.productRecords.findMany({
             select: {
                 id: true,
                 name: true,

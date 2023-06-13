@@ -17,7 +17,7 @@ const Categories = () => {
                             alt={service.title}
                             width={25}
                             height={25}
-                            className="object-cover"
+                            className="object-cover h-auto w-auto"
                         />
                         <div className='flex flex-col'>
                             <h3 className='text-sm text-gray-900 font-semibold'>{service.title}</h3>

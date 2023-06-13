@@ -7,7 +7,6 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Brand, Categories } from '@prisma/client';
 import Image from 'next/image';
 import { handleStars } from '@/actions/handleStars';
-// import { Product } from '@/@types';
 
 interface Product {
     id: string;
@@ -65,9 +64,9 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
         <div className='w-full pb-10'>
             <h2 className='text-sm md:text-lg text-gray-900 font-semibold'>Featured Products</h2>
 
-            <Slider {...settings} className='w-full product-slide mt-4 products-collection'>
+            <Slider {...settings} className='w-full grid grid-cols-1 product-slide mt-4 products-collection'>
                 {products && products.map((product: Product, index) => (
-                    <div key={index} className='relative p-4 shadow-md rounded-lg bg-white group cursor-pointer'>
+                    <div key={index} className='relative grid grid-cols-1 h-full p-4 shadow-md rounded-lg bg-white group cursor-pointer'>
                         <div className='absolute top-1 right-1 z-20 bg-white'>
                             <FavoriteBorderIcon className="2-8 h-8 cursor-pointer text-gray-600 hover:text-gray-900" />
                         </div>
@@ -76,11 +75,12 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
                                 src={product.image_sm ? product.image_sm : ""}
                                 alt={product.name}
                                 fill
-                                className='w-full bg-white object-contain group-hover:scale-110 transition'
+                                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 100vw, 33vw"
+                                className='w-auto h-auto bg-white object-contain group-hover:scale-110 transition'
                             />
                         </div>
                         {/* FA5655 */}
-                        <div className='flex flex-col gap-3'>
+                        <div className='flex-1 flex flex-col gap-3'>
                             <p className='text-sm text-[#F9B96E] font-semibold'>Brand: {product.brand.name}</p>
                             <h3 className="text-sm text-gray-900 line-clamp-2">{product.name}</h3>
                             <div>

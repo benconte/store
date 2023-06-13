@@ -7,8 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-      },
+      colors: {
+        darkYellow: "#F9B96E",
+      }
     },
   },
   plugins: [],

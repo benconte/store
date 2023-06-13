@@ -14,6 +14,7 @@ export interface ProductType {
         rate: number
     };
     category: string;
+    description: string;
 }
 
 export interface FeaturedProduct {
