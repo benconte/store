@@ -1,28 +1,27 @@
 'use client'
 
-import { getSpecialProducts } from '@/actions/getSpecialProducts'
 import { handleStars } from '@/actions/handleStars'
 import Image from 'next/image'
 import Link from 'next/link'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Brand, Categories, ProductRecords } from '@prisma/client';
 
-type SpecialproductsProps = ProductRecords & {
+type Record = ProductRecords & {
     brand: Brand,
-    category: Categories
+    category: Categories,
 }
 
-const Specialproducts = ({ products }: { products: SpecialproductsProps[] }) => {
+const Specialproducts = ({ products, randomNumber }: { products: Record[], randomNumber: number }) => {
     return (
         <div className="w-full py-10">
             <h2 className='text-sm md:text-lg text-gray-900 font-semibold'>Special Products</h2>
             <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
-                {products && products.length > 0 && products.map((product: SpecialproductsProps) => (
+                {products && products.length > 0 && products.map((product: Record) => (
                     <div className='w-full rounded-lg grid grid-cols-1 md:grid-cols-2 gap-3 bg-white' key={product.id}>
                         <div className="relative w-full flex items-center justify-center pt-5">
 
                             <small className='absolute top-2 left-2 z-20 bg-darkYellow text-gray-900 text-xs font-semibold leading-3 m-0 py-1 px-2 rounded-xl flex items-center text-center'>
-                                -{Math.floor(Math.random() * 40)}%
+                                -{randomNumber}%
                             </small>
                             <div className='bg-white absolute top-1 z-20 right-2'>
                                 <FavoriteBorderIcon className="2-8 h-8 cursor-pointer text-gray-600 hover:text-gray-900" />

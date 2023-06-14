@@ -1,8 +1,8 @@
 import prisma from "@/libs/prismadb"
+import { NextResponse } from "next/server"
 
-export async function getSpecialProducts() {
+export async function GET(request: Request) {
     try {
-        // return products based on categories }
         const products = await prisma.productRecords.findMany({
             where: {
                 OR: [
@@ -10,16 +10,16 @@ export async function getSpecialProducts() {
                     { category: { name: "Smart Television" } },
                     { category: { name: "Accessories" } },
                 ]
-            },
+            },  
             include: {
                 brand: true,
                 category: true,
             }
         })
 
-        return products;
+        return NextResponse.json(products)
     } catch (error) {
-        console.log("ERROR", error)
-        return []
+        console.log(error, "ERROR")
+        return NextResponse.json([])
     }
 }

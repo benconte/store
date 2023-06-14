@@ -26,3 +26,19 @@ export interface FeaturedProduct {
     brand: Brand;
     category: Categories
 }
+
+// products from fakestoreapi
+export interface CustomProductProps {
+    id: string;
+    name: string;
+    price: number;
+    image_sm: string | null;
+    rating: number;
+    brand: Brand;
+    category: Categories;
+  }
+  
+export type SpecialproductsProps = ProductRecords & {
+    brand: Brand,
+    category: Categories,
+  }

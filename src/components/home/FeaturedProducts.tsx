@@ -7,18 +7,10 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Brand, Categories } from '@prisma/client';
 import Image from 'next/image';
 import { handleStars } from '@/actions/handleStars';
+import { CustomProductProps } from '@/@types';
 
-interface Product {
-    id: string;
-    name: string;
-    price: number;
-    image_sm: string | null;
-    rating: number;
-    brand: Brand;
-    category: Categories;
-}
-
-const FeaturedProducts = ({ products }: { products: Product[] }) => {
+const FeaturedProducts = ({ products }: { products: CustomProductProps[] }) => {
+    console.log("Testing products", products)
     const settings = {
         dots: false,
         infinite: false,
@@ -65,7 +57,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
             <h2 className='text-sm md:text-lg text-gray-900 font-semibold'>Featured Products</h2>
 
             <Slider {...settings} className='w-full grid grid-cols-1 product-slide mt-4 products-collection'>
-                {products && products.map((product: Product, index) => (
+                {products && products.map((product: CustomProductProps, index) => (
                     <div key={index} className='relative grid grid-cols-1 h-full p-4 shadow-md rounded-lg bg-white group cursor-pointer'>
                         <div className='absolute top-1 right-1 z-20 bg-white'>
                             <FavoriteBorderIcon className="2-8 h-8 cursor-pointer text-gray-600 hover:text-gray-900" />
