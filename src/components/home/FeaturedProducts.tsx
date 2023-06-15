@@ -10,7 +10,6 @@ import { handleStars } from '@/actions/handleStars';
 import { CustomProductProps } from '@/@types';
 
 const FeaturedProducts = ({ products }: { products: CustomProductProps[] }) => {
-    console.log("Testing products", products)
     const settings = {
         dots: false,
         infinite: false,

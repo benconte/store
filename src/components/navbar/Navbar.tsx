@@ -8,14 +8,14 @@ const Navbar = (
   { children }: { children: React.ReactNode }
 ) => {
   return (
-    <div className='w-full min-h-full'>
+    <div className='w-full min-h-full overflow-hidden'>
       <div className='w-full flex flex-col'>
         <div className='w-full h-auto bg-gray-900 px-3 md:px-12 pb-1'>
           <Banner />
           <MobileNav />
           <NavOptions />
         </div>
-        <div className='px-3 md:px-12 w-full h-auto bg-[#20303D] '>
+        <div className='px-3 md:px-12 w-full h-auto bg-darkBlue '>
           <BottomNav />
         </div>
       </div>

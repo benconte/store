@@ -4,6 +4,8 @@ import FeaturedProducts from "./FeaturedProducts";
 import ImgSlider from "./ImgSlider";
 import ProductSuggestions from "./ProductSuggestions";
 import Specialproducts from "./Specialproducts";
+import BrandsMarqueu from "./BrandsMarqueu";
+import Footer from "./Footer";
 
 export {
     BannerSection,
@@ -12,4 +14,6 @@ export {
     FeaturedProducts,
     ProductSuggestions,
     Specialproducts,
+    BrandsMarqueu,
+    Footer,
 }

@@ -1,6 +1,6 @@
 const Banner = () => {
     return (
-        <div className="w-full flex items-center justify-between py-3 h-auto text-sm text-gray-300">
+        <div className="w-full flex items-center justify-between flex-wrap py-3 h-auto text-sm text-gray-300">
             <p className="text-xs md:text-sm font-light">Free shipping over $100 & Free returns</p>
             <div className="flex items-center gap-5">
                 <span className="text-xs md:text-sm font-light">

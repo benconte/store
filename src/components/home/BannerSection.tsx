@@ -27,7 +27,7 @@ const BannerSection = () => {
         <div className='w-full flex flex-col lg:flex-row gap-5'>
             <ImgSlider />
 
-            <div className='w-full h-96 grid grid-cols-2 gap-3'>
+            <div className='w-full h-64 md:h-96 grid grid-cols-2 gap-3'>
                 <div className={`w-full h-full rounded-lg relative overflow-hidden`}>
                     <Image
                         src={"/images/catbanner-01.jpg"}
@@ -35,14 +35,14 @@ const BannerSection = () => {
                         fill
                         className='object-cover'
                     />
-                    <div className='absolute top-0 right-0 left-0 pt-5 pb-14 px-5'>
-                        <small className='text-sm text-[#D0A291] font-semibold pb-3'>
+                    <div className='absolute top-0 right-0 left-0 pt-1 md:pt-5 pb-14 px-2 md:px-5'>
+                        <small className='text-sm text-[#D0A291] font-semibold pb-1 md:pb-3'>
                             Best Sale
                         </small>
-                        <h2 className='font-semibold text-xl md:text-2xl text-gray-900 pb-3'>
+                        <h2 className='font-semibold text-base md:text-2xl text-gray-900 pb-1 md:pb-3'>
                             laptops Max
                         </h2>
-                        <p className='text-xs text-gray-900 w-3/6'>
+                        <p className='text-xs text-gray-900 w-3/6 line-clamp-3 md:line-clamp-none'>
                             From $1699.00 or 64.62/mo.
                         </p>
                     </div>
@@ -54,14 +54,14 @@ const BannerSection = () => {
                         fill
                         className='object-cover'
                     />
-                    <div className='absolute top-0 right-0 left-0 pt-5 pb-14 px-5'>
-                        <small className='text-sm text-[#D0A291] font-semibold pb-3'>
+                    <div className='absolute top-0 right-0 left-0 pt-1 md:pt-5 pb-14 px-2 md:px-5'>
+                        <small className='text-sm text-[#D0A291] font-semibold pb-1 md:pb-3'>
                             New Arrival
                         </small>
-                        <h2 className='font-semibold text-xl md:text-2xl text-gray-900 pb-3'>
+                        <h2 className='font-semibold text-base md:text-2xl text-gray-900 pb-1 md:pb-3'>
                             Buy IPad Air
                         </h2>
-                        <p className='text-xs text-gray-900 w-3/6'>
+                        <p className='text-xs text-gray-900 w-3/6 line-clamp-3 md:line-clamp-none'>
                             From $899.00 or $49.62/mo.
                         </p>
                     </div>
@@ -73,14 +73,14 @@ const BannerSection = () => {
                         fill
                         className='object-cover'
                     />
-                    <div className='absolute top-0 right-0 left-0 pt-5 pb-14 px-5'>
-                        <small className='text-sm text-[#D0A291] font-semibold pb-3'>
+                    <div className='absolute top-0 right-0 left-0 pt-1 md:pt-5 pb-14 px-2 md:px-5'>
+                        <small className='text-sm text-[#D0A291] font-semibold pb-1 md:pb-3'>
                             15% OFF
                         </small>
-                        <h2 className='font-semibold text-xl md:text-2xl text-gray-900 pb-3'>
+                        <h2 className='font-semibold text-base md:text-2xl text-gray-900 pb-1 md:pb-3'>
                             Smartwatch 9
                         </h2>
-                        <p className='text-xs text-gray-900 w-3/6'>
+                        <p className='text-xs text-gray-900 w-3/6 line-clamp-3 md:line-clamp-none'>
                             Shop the latest band style and colors.
                         </p>
                     </div>
@@ -92,14 +92,14 @@ const BannerSection = () => {
                         fill
                         className='object-cover'
                     />
-                    <div className='absolute top-0 right-0 left-0 pt-5 pb-14 px-5'>
-                        <small className='text-sm text-[#D0A291] font-semibold pb-3'>
+                    <div className='absolute top-0 right-0 left-0 pt-1 md:pt-5 pb-14 px-2 md:px-5'>
+                        <small className='text-sm text-[#D0A291] font-semibold pb-1 md:pb-3'>
                             Free Engraving
                         </small>
-                        <h2 className='font-semibold text-xl md:text-2xl text-gray-900 pb-3'>
+                        <h2 className='font-semibold text-base md:text-2xl text-gray-900 pb-1 md:pb-3'>
                             Airpods Max
                         </h2>
-                        <p className='text-xs text-gray-900 w-3/6'>
+                        <p className='text-xs text-gray-900 w-3/6 line-clamp-3 md:line-clamp-none'>
                             High Fidelity playback & Ultra-low Distortion
                         </p>
                     </div>

@@ -12,7 +12,7 @@ const ProductSuggestions = () => {
                             src={product.image}
                             alt={product.title}
                             fill
-                            className='w-full h-full object-cover'
+                            className='w-full h-full object-contain'
                         />
                         <div className='absolute top-0 left-0 right-0 pt-5 px-5'>
                             <small

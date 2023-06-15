@@ -11,7 +11,7 @@ type Record = ProductRecords & {
     category: Categories,
 }
 
-const Specialproducts = ({ products, randomNumber }: { products: Record[], randomNumber: number }) => {
+const Specialproducts = ({ products }: { products: Record[] }) => {
     return (
         <div className="w-full py-10">
             <h2 className='text-sm md:text-lg text-gray-900 font-semibold'>Special Products</h2>
@@ -21,7 +21,7 @@ const Specialproducts = ({ products, randomNumber }: { products: Record[], rando
                         <div className="relative w-full flex items-center justify-center pt-5">
 
                             <small className='absolute top-2 left-2 z-20 bg-darkYellow text-gray-900 text-xs font-semibold leading-3 m-0 py-1 px-2 rounded-xl flex items-center text-center'>
-                                -{randomNumber}%
+                                -{product.discount}%
                             </small>
                             <div className='bg-white absolute top-1 z-20 right-2'>
                                 <FavoriteBorderIcon className="2-8 h-8 cursor-pointer text-gray-600 hover:text-gray-900" />
