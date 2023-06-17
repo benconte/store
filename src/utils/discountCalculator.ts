@@ -6,5 +6,5 @@ export function calculateFinalPrice(originalPrice: number, discount: number) {
     const discountAmount = originalPrice * (discount / 100);
     const finalPrice = originalPrice - discountAmount;
 
-    return finalPrice;
+    return finalPrice.toFixed(2);
 }

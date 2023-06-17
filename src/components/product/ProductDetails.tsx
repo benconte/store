@@ -1,12 +1,9 @@
 import { FC } from 'react'
-import { Brand, Categories, Products } from '@prisma/client'
 import { Details, Form } from "@/components/product"
+import { Product } from '@/@types'
 
 interface ProductDetailsProps {
-    product: Products & {
-        category: Categories,
-        brand: Brand
-    } | null
+    product: Product
 }
 
 const ProductDetails: FC<ProductDetailsProps> = ({product}) => {

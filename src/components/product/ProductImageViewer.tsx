@@ -1,15 +1,12 @@
 'use client'
 
-import { Brand, Categories, Products } from '@prisma/client'
+import { Product } from '@/@types'
 import clsx from 'clsx'
 import Image from 'next/image'
-import { FC, useCallback, useState } from 'react'
+import { FC, useState } from 'react'
 
 interface ProductImageViewerProps {
-    product: Products & {
-        category: Categories,
-        brand: Brand
-    } | null
+    product: Product
 }
 
 const ProductImageViewer: FC<ProductImageViewerProps> = ({ product }) => {

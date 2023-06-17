@@ -1,7 +1,6 @@
 'use client'
 
 import { FC } from 'react'
-import { Brand, Categories, Products } from '@prisma/client'
 import DiscountIcon from '@mui/icons-material/Discount';
 import { calculateFinalPrice } from '@/utils/discountCalculator';
 import Image from "next/image"
@@ -15,12 +14,10 @@ import small_3_half from "../../../public/images/icons/small_3_half.png"
 import small_4 from "../../../public/images/icons/small_4.png"
 import small_4_half from "../../../public/images/icons/small_4_half.png"
 import small_5 from "../../../public/images/icons/small_5.png"
+import { Product } from '@/@types';
 
 interface DetailsProps {
-  product: Products & {
-    category: Categories,
-    brand: Brand
-  } | null;
+  product: Product
 }
 
 const Details: FC<DetailsProps> = ({ product }) => {

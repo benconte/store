@@ -1,7 +1,6 @@
 import { getProductById } from "@/actions"
 import ProductDetails from "@/components/product/ProductDetails"
 import ProductImageViewer from "@/components/product/ProductImageViewer"
-import { Brand, Categories, Products } from "@prisma/client"
 
 interface IParams {
   productId: string

@@ -23,9 +23,8 @@ model User {
   userIds  String[]   @db.ObjectId
   wishlist Products[] @relation(fields: [userIds], references: [id])
 
-  wishlistProducts ProductRecords[] @relation(fields: [userIds], references: [id])
-
   accounts Account[]
+  cart Cart[]
 }
 
 model Account {
@@ -53,7 +52,6 @@ model Categories {
   stock Int
 
   products Products[]
-  productRecords ProductRecords[]
 }
 
 model Brand {
@@ -62,7 +60,6 @@ model Brand {
   image String?
 
   Products Products[]
-  productRecords ProductRecords[]
 }
 
 model Products {
@@ -86,27 +83,26 @@ model Products {
 
   wishlistedByIds String[] @db.ObjectId
   wishlistedBy    User[]   @relation(fields: [wishlistedByIds], references: [id])
+  
+  cartsBelongTo CartProduct[]
 }
 
-model ProductRecords {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  price       Float
-  discount    Int?
-  rating      Float
-  description String
-  image_1     String
-  image_2     String?
-  image_3     String?
-  image_sm    String?
-  stock       Int
+model Cart  {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  categoryId String     @db.ObjectId
-  category   Categories @relation(fields: [categoryId], references: [id])
+  cartProduct CartProduct[]
 
-  brandId String @db.ObjectId
-  brand   Brand  @relation(fields: [brandId], references: [id])
+  userId String @db.ObjectId
+  user User @relation(fields: [userId], references: [id])
+}
 
-  wishlistedByIds String[] @db.ObjectId
-  wishlistedBy    User[]   @relation(fields: [wishlistedByIds], references: [id])
+model CartProduct {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  productOrdered Int?
+  
+  productId String @db.ObjectId
+  product Products @relation(fields: [productId], references: [id])
+
+  cartId String @db.ObjectId
+  cart Cart @relation(fields: [cartId], references: [id])
 }

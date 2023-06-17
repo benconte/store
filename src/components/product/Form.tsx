@@ -1,23 +1,22 @@
 'use client'
 
 import { FC, useState } from 'react'
-import { Brand, Categories, Products } from '@prisma/client'
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import clsx from 'clsx';
-
-interface FormProps {
-  product: Products & {
-    category: Categories,
-    brand: Brand
-  } | null
-}
+import { calculateFinalPrice } from '@/utils/discountCalculator';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/redux/store';
+import { Product, ProductCart } from '@/@types';
+import { addCart } from '@/redux/features/guestCart-slice';
 
 type Action = 'INCR' | 'DECR';
 
-const Form: FC<FormProps> = ({ product }) => {
+const Form = ({ product } : {product: Product}) => {
   const [currentAmount, setCurrentAmount] = useState(1);
+
+  const dispatch = useDispatch<AppDispatch>()
 
   const changeAmount = (action: Action) => {
     if (currentAmount === 0 && action !== "INCR") return;
@@ -27,6 +26,19 @@ const Form: FC<FormProps> = ({ product }) => {
     } else {
       setCurrentAmount(currentAmount - 1);
     }
+  }
+
+  const records: Product = product
+
+  const addToCart = () => {
+    dispatch(addCart({
+      ...product as ProductCart,
+      productOrdered: currentAmount,
+    }))
+  }
+
+  const handleProductBuy = () => {
+
   }
   return (
     <div className='w-full md:max-w-xs border-2 border-gray-100 shadow p-3 rounded-lg'>
@@ -55,7 +67,11 @@ const Form: FC<FormProps> = ({ product }) => {
 
       <div className="flex items-center justify-between py-2">
         <p className='text-sm text-gray-500'>Price</p>
-        <b className="text-base font-semibold text-gray-900">{product?.price}</b>
+        <b className="text-base font-semibold text-gray-900">
+          ${product?.discount ? calculateFinalPrice(product?.price as number, product?.discount as number)
+            :
+            product?.price
+          }</b>
       </div>
       <div className="flex items-center justify-between py-2">
         <p className='text-sm text-gray-500'>Shipping</p>
@@ -63,8 +79,16 @@ const Form: FC<FormProps> = ({ product }) => {
       </div>
 
       <div className="w-full flex flex-col gap-3 my-5">
-        <button type="button" className="w-full py-2 rounded-lg text-center cursor-pointer bg-orange-600 text-white border-none outline-none text-sm">Add to Cart</button>
-        <button type="button" className="w-full py-2 rounded-lg text-center cursor-pointer bg-white border border-orange-600 text-orange-600 outline-none text-sm">Buy Now</button>
+        <button
+          type="button"
+          className="w-full py-2 rounded-lg text-center cursor-pointer bg-orange-600 hover:bg-orange-700 text-white border-none outline-none text-sm"
+          onClick={addToCart}
+        >Add to Cart</button>
+        <button
+          type="button"
+          className="w-full py-2 rounded-lg text-center cursor-pointer bg-white border border-orange-600 text-orange-600 outline-none text-sm"
+          onClick={handleProductBuy}
+        >Buy Now</button>
       </div>
     </div>
   )
