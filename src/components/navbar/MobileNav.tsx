@@ -5,6 +5,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { FieldValues, useForm, SubmitHandler } from 'react-hook-form';
 import SearchIcon from '@mui/icons-material/Search';
+import Link from 'next/link';
 
 const MobileNav = () => {
     const {
@@ -21,13 +22,16 @@ const MobileNav = () => {
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
 
-    } 
+    }
     return (
         <div className='w-full flex flex-col lg:hidden border-t border-solid border-gray-700 py-2'>
             <div className="flex items-center justify-between">
                 <div className='flex items-center gap-3'>
                     <MenuIcon className="w-7 h-7 text-gray-300 cursor-pointer" />
-                    <h1 className='font-medium text-white text-xl cursor-pointer'>Store</h1>
+                    <Link href="/" className='no-underline p-0'>
+                        <h1 className='font-medium text-white text-xl cursor-pointer'>Store.</h1>
+                    </Link>
+
                 </div>
                 <div className="flex items-center gap-3">
                     <PersonOutlineIcon className="w-7 h-7 text-gray-300 cursor-pointer" />

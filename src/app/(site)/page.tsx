@@ -1,5 +1,4 @@
-import { getProducts } from "@/actions";
-import { getSpecialProducts } from "@/actions/getSpecialProducts";
+import { getNewProducts, getProducts, getSpecialProducts } from "@/actions";
 import {
   BannerSection,
   BrandsMarqueu,
@@ -12,19 +11,18 @@ import {
 
 export default async function Home() {
   const products = await getProducts()
+  const newProducts = await getNewProducts()
   const specialProducts = await getSpecialProducts()
 
   return (
-    <main className="h-full w-full">
-      <div className="h-full px-2 md:px-12 py-5 md:py-8">
-        <BannerSection />
-        <Categories />
-        <FeaturedProducts products={products} />
-        <ProductSuggestions />
-        <Specialproducts products={specialProducts} />
-        <BrandsMarqueu />
-      </div>
-      <Footer />
+    <main className="h-full px-2 md:px-12 py-5 md:py-8">
+      <BannerSection />
+      <Categories />
+      <FeaturedProducts products={newProducts} heading="Best Selling" />
+      <FeaturedProducts products={products} heading="Featured Products" />
+      <ProductSuggestions />
+      <Specialproducts products={specialProducts} />
+      <BrandsMarqueu />
     </main>
   )
 }

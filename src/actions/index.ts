@@ -1,6 +1,13 @@
-import { getFakeStoreProducts } from "./getFakeStoreProducts";
+import { getNewProducts } from "./getNewProducts";
 import { getProducts } from "./getProducts";
+import { getSpecialProducts } from "./getSpecialProducts";
+import { handleStars } from "./handleStars";
+import { getProductById } from "./getProductById";
+
 export {
     getProducts,
-    getFakeStoreProducts,
+    getNewProducts,
+    getSpecialProducts,
+    handleStars,
+    getProductById
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image"
 import small_0 from "../../public/images/icons/small_0.png"
 import small_1 from "../../public/images/icons/small_1.png"
@@ -9,19 +11,6 @@ import small_3_half from "../../public/images/icons/small_3_half.png"
 import small_4 from "../../public/images/icons/small_4.png"
 import small_4_half from "../../public/images/icons/small_4_half.png"
 import small_5 from "../../public/images/icons/small_5.png"
-
-const stars = {
-    0: small_0,
-    1: small_1,
-    1.5: small_1_half,
-    2: small_2,
-    2.5: small_2_half,
-    3: small_3,
-    3.5: small_3_half,
-    4: small_4,
-    4.5: small_4_half,
-    5: small_5,
-}
 
 export const handleStars = (rating: number) => {
     if (rating === 0) {

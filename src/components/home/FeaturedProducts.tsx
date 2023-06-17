@@ -4,12 +4,12 @@ import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { Brand, Categories } from '@prisma/client';
 import Image from 'next/image';
 import { handleStars } from '@/actions/handleStars';
 import { CustomProductProps } from '@/@types';
+import Link from 'next/link';
 
-const FeaturedProducts = ({ products }: { products: CustomProductProps[] }) => {
+const FeaturedProducts = ({ products, heading }: { products: CustomProductProps[], heading: string }) => {
     const settings = {
         dots: false,
         infinite: false,
@@ -66,8 +66,7 @@ const FeaturedProducts = ({ products }: { products: CustomProductProps[] }) => {
                                 src={product.image_sm ? product.image_sm : ""}
                                 alt={product.name}
                                 fill
-                                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 100vw, 33vw"
-                                className='w-auto h-auto bg-white object-contain group-hover:scale-110 transition'
+                                className='w-full bg-white object-contain group-hover:scale-110 transition'
                             />
                         </div>
                         {/* FA5655 */}

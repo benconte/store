@@ -1,11 +1,9 @@
 import { useMemo } from "react";
 import prisma from "@/libs/prismadb"
 
-export async function getProducts() {
+export async function getNewProducts() {
     try {
         const products = await prisma.products.findMany({
-            skip: 11,
-            take: 20,
             select: {
                 id: true,
                 name: true,
@@ -14,7 +12,8 @@ export async function getProducts() {
                 rating: true,
                 brand: true,
                 category: true
-            }
+            },
+            take: 11
         });
 
         return products;

@@ -6,12 +6,16 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import Link from 'next/link';
+import EmailIcon from '@mui/icons-material/Email';
 
 const Footer = () => {
     return (
         <div className='w-full bg-darkBlue py-10 px-3 md:px-20'>
             <div className="w-full h-auto flex flex-col md:flex-row md:items-center justify-around pb-5 border-b border-gray-600 gap-4">
-                <h3 className='text-base md:text-2xl text-white font-semibold'>Sign up for Newsletter</h3>
+                <div className="flex items-center gap-2 md:gap-3">
+                    <EmailIcon className="w-4 h-4 md:w-7 md:h-7 text-white" />
+                    <h3 className='text-base md:text-2xl text-white font-semibold'>Sign up for Newsletter</h3>
+                </div>
                 <div className="flex items-center bg-white rounded-lg p-1">
                     <input
                         type="email"
