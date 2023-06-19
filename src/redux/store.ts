@@ -1,12 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import guestCartReducer from "./features/guestCart-slice";
 import userCartReducer from "./features/user-slice";
+import authModalReducer from "./features/authModal";
+import authReducer from "./features/authSlice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const store = configureStore({
     reducer: {
         guestCartReducer,
         userCartReducer,
+        authModalReducer,
+        authReducer,
     }
 });
 

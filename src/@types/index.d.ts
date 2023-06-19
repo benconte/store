@@ -9,9 +9,10 @@ export type ProductCart = Products & {
     brand: Brand,
     category: Categories,
 } & {
-    productOrdered: number | null;
+    productOrdered: number;
 }
 
+// type related to user cart
 export type UserState = User & {
     cart: CartState
 }

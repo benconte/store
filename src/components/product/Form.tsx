@@ -1,21 +1,25 @@
 'use client'
 
-import { FC, useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import clsx from 'clsx';
 import { calculateFinalPrice } from '@/utils/discountCalculator';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/redux/store';
+import { AppDispatch, useAppSelector } from '@/redux/store';
 import { Product, ProductCart } from '@/@types';
-import { addCart } from '@/redux/features/guestCart-slice';
+import { addCart, removeCart } from '@/redux/features/guestCart-slice';
 
 type Action = 'INCR' | 'DECR';
 
 const Form = ({ product } : {product: Product}) => {
   const [currentAmount, setCurrentAmount] = useState(1);
 
+  const isProductInCart = useAppSelector((state) => state.guestCartReducer.value.some(
+    (prod) => prod.id === product?.id
+  ));
+  
   const dispatch = useDispatch<AppDispatch>()
 
   const changeAmount = (action: Action) => {
@@ -35,6 +39,10 @@ const Form = ({ product } : {product: Product}) => {
       ...product as ProductCart,
       productOrdered: currentAmount,
     }))
+  }
+
+  const removeFromCart = () => {
+    dispatch(removeCart(product?.id as string))
   }
 
   const handleProductBuy = () => {
@@ -82,8 +90,10 @@ const Form = ({ product } : {product: Product}) => {
         <button
           type="button"
           className="w-full py-2 rounded-lg text-center cursor-pointer bg-orange-600 hover:bg-orange-700 text-white border-none outline-none text-sm"
-          onClick={addToCart}
-        >Add to Cart</button>
+          onClick={!isProductInCart ? addToCart : removeFromCart}
+        >
+          {isProductInCart ? "Remove From Cart" : "Add to Cart"}
+        </button>
         <button
           type="button"
           className="w-full py-2 rounded-lg text-center cursor-pointer bg-white border border-orange-600 text-orange-600 outline-none text-sm"

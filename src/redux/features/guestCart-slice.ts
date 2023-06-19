@@ -6,7 +6,7 @@ type InitialState = {
 }
 
 type CartState = Product & {
-    productOrdered: number | null, // this will keep track of how many product a user wants to buy
+    productOrdered: number, // this will keep track of how many product a user wants to buy
 }
 
 const initialState = {

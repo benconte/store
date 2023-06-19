@@ -4,10 +4,29 @@ import CachedIcon from '@mui/icons-material/Cached';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { useAppSelector } from '@/redux/store';
+import { AppDispatch, useAppSelector } from '@/redux/store';
+import { useDispatch } from 'react-redux';
+import { openModal } from '@/redux/features/authModal';
+import LogoutIcon from '@mui/icons-material/Logout';
+import HelpIcon from '@mui/icons-material/Help';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { useState } from 'react';
+import { signOut } from 'next-auth/react';
 
 const Options = () => {
+    const [isDropdown, setIsDropwdown] = useState(false)
+
     const cartLength = useAppSelector((state) => state.guestCartReducer.value.length)
+    const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated)
+    const dispatch = useDispatch<AppDispatch>()
+
+    const openAuthModal = () => {
+        dispatch(openModal())
+    }
+
+    const logout = () => {
+        signOut()
+    }
     return (
         <div className="flex items-center gap-6">
             <div className='flex items-center gap-2 group'>
@@ -16,12 +35,53 @@ const Options = () => {
             </div>
             <div className='flex items-center gap-2 group'>
                 <FavoriteBorderIcon className="w-7 h-7 text-gray-300 cursor-pointer" />
-                <span className='text-xs font-light text-gray-300 group-hover:underline cursor-pointer'>Favorites Wishlist</span>
+                <span className='text-xs font-light text-gray-300 group-hover:underline cursor-pointer'>Favorite Whishlist</span>
             </div>
-            <div className='flex items-center gap-2 group'>
-                <PersonOutlineIcon className="w-7 h-7 text-gray-300 cursor-pointer" />
-                <span className='text-xs font-light text-gray-300 group-hover:underline cursor-pointer'>Login Account</span>
-            </div>
+            {isAuth ?
+                <div className='relative flex items-center gap-2 group'>
+                    <div className="cursor-pointer flex items-center gap-2" onClick={() => setIsDropwdown(!isDropdown)}>
+                        <PersonOutlineIcon className="w-7 h-7 text-gray-300 cursor-pointer" />
+                        <span className='text-xs font-light text-gray-300 group-hover:underline cursor-pointer'>Account</span>
+                    </div>
+                    {isDropdown &&
+                        <div className="absolute h-auto top-10 right-0 w-40 bg-white rounded-lg overflow-hidden border border-gray-300 shadow-md">
+                            <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 mb-3 cursor-pointer text-gray-500 hover:text-white">
+                                <PersonOutlineIcon className="w-5 h-5 cursor-pointer" />
+                                <span className="text-sm">Profile</span>
+                            </div>
+
+                            <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 mb-3 cursor-pointer text-gray-500 hover:text-white">
+                                <FavoriteBorderIcon className="w-5 h-5 cursor-pointer" />
+                                <span className="text-sm">Favorites</span>
+                            </div>
+
+                            <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 mb-3 cursor-pointer text-gray-500 hover:text-white">
+                                <SettingsIcon className="w-5 h-5 cursor-pointer" />
+                                <span className="text-sm">Settings</span>
+                            </div>
+
+                            <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 mb-3 cursor-pointer text-gray-500 hover:text-white">
+                                <HelpIcon className="w-5 h-5 cursor-pointer" />
+                                <span className="text-sm">Help</span>
+                            </div>
+
+                            <div
+                                className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 mb-3 cursor-pointer text-gray-500 hover:text-white"
+                                onClick={logout}
+                            >
+                                <LogoutIcon className="w-5 h-5 cursor-pointer" />
+                                <span className="text-sm">Logout</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+                :
+                <div className='flex items-center gap-2 group' onClick={openAuthModal}>
+                    <PersonOutlineIcon className="w-7 h-7 text-gray-300 cursor-pointer" />
+                    <span className='text-xs font-light text-gray-300 group-hover:underline cursor-pointer'>Login Account</span>
+                </div>
+            }
+
             <div className='flex items-center gap-2 group'>
                 <div className='relative'>
                     <AddShoppingCartIcon className="w-7 h-7 text-[#F9B96E] cursor-pointer" />

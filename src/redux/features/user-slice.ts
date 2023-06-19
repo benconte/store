@@ -14,6 +14,9 @@ export const userCart = createSlice({
     name: "userCart",
     initialState,
     reducers: {
+        addUser: (state, action: PayloadAction<UserState>) => {
+            return {...state, ...action.payload}
+        },
         addCart: (state, action: PayloadAction<CartProduct>) => {
             if (state.value.cart.cartProduct.map((item) => item.product?.id === action.payload.product?.id)) {
                 return state; // Product already exists in the cart, return the current state
@@ -41,5 +44,5 @@ export const userCart = createSlice({
     }
 });
 
-export const { addCart, removeCart, updateCart } = userCart.actions;
+export const { addUser, addCart, removeCart, updateCart } = userCart.actions;
 export default userCart.reducer;
