@@ -6,10 +6,10 @@ import "slick-carousel/slick/slick-theme.css";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Image from 'next/image';
 import { handleStars } from '@/actions/handleStars';
-import { CustomProductProps } from '@/@types';
+import { Product } from '@/@types';
 import Link from 'next/link';
 
-const FeaturedProducts = ({ products, heading }: { products: CustomProductProps[], heading: string }) => {
+const FeaturedProducts = ({ products, heading }: { products: Product[], heading: string }) => {
     const settings = {
         dots: false,
         infinite: false,
@@ -56,31 +56,30 @@ const FeaturedProducts = ({ products, heading }: { products: CustomProductProps[
             <h2 className='text-sm md:text-lg text-gray-900 font-semibold'>{heading}</h2>
 
             <Slider {...settings} className='w-full grid grid-cols-1 product-slide mt-4 products-collection'>
-                {products && products.map((product: CustomProductProps, index) => (
-                    <Link key={index} className='no-underline p-0 w-full' href={`/product/${product.id}`}>
+                {products && products.map((product: Product, index) => (
                     <div key={index} className='relative grid grid-cols-1 h-full p-4 shadow-md rounded-lg bg-white group cursor-pointer'>
                         <div className='absolute top-1 right-1 z-20 bg-white'>
                             <FavoriteBorderIcon className="2-8 h-8 cursor-pointer text-gray-600 hover:text-gray-900" />
                         </div>
-                        <div className='relative w-full h-40 z-10 flex items-center justify-center mt-8 mb-5'>
-                            <Image
-                                src={product.image_sm ? product.image_sm : ""}
-                                alt={product.name}
-                                fill
-                                className='w-full bg-white object-contain group-hover:scale-110 transition'
-                            />
-                        </div>
-                        {/* FA5655 */}
-                        <div className='flex-1 flex flex-col gap-3'>
-                            <p className='text-sm text-[#F9B96E] font-semibold'>Brand: {product.brand.name}</p>
-                            <h3 className="text-sm text-gray-900 line-clamp-2">{product.name}</h3>
-                            <div>
-                                {handleStars(product.rating)}
+                        <Link key={index} className='no-underline p-0 w-full h-full' href={`/product/${product?.id}`}>
+                            <div className='relative w-full h-40 z-10 flex items-center justify-center mt-8 mb-5'>
+                                <Image
+                                    src={product?.image_sm ? product.image_sm : ""}
+                                    alt={product?.name as string}
+                                    fill
+                                    className='w-full bg-white object-contain group-hover:scale-110 transition'
+                                />
                             </div>
-                            <p className="text-sm text-gray-900">${product.price}</p>
-                        </div>
+                            <div className='flex-1 flex flex-col gap-3'>
+                                <p className='text-sm text-[#F9B96E] font-semibold'>Brand: {product?.brand.name}</p>
+                                <h3 className="text-sm text-gray-900 line-clamp-2">{product?.name}</h3>
+                                <div>
+                                    {handleStars(product?.rating as number)}
+                                </div>
+                                <p className="text-sm text-gray-900">${product?.price}</p>
+                            </div>
+                        </Link>
                     </div>
-                    </Link>
                 ))}
             </Slider>
         </div>

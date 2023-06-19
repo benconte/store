@@ -27,11 +27,7 @@ export default function RootLayout({
           <AuthContext>
             <HandleAuth>
               <ToasterContext />
-              <Navbar>
-                <Auth />
-                {children}
-              </Navbar>
-              <Footer />
+              {children}
             </HandleAuth>
           </AuthContext>
         </ReduxProvider>

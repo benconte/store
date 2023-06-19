@@ -24,7 +24,7 @@ model User {
   wishlist Products[] @relation(fields: [userIds], references: [id])
 
   accounts Account[]
-  cart Cart[]
+  cart     Cart[]
 }
 
 model Account {
@@ -37,6 +37,7 @@ model Account {
   access_token      String? @db.String
   expires_at        Int?
   token_type        String?
+  scope             String?
   id_token          String? @db.String
   session_state     String?
 
@@ -83,26 +84,26 @@ model Products {
 
   wishlistedByIds String[] @db.ObjectId
   wishlistedBy    User[]   @relation(fields: [wishlistedByIds], references: [id])
-  
+
   cartsBelongTo CartProduct[]
 }
 
-model Cart  {
+model Cart {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
   cartProduct CartProduct[]
 
   userId String @db.ObjectId
-  user User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model CartProduct {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
   productOrdered Int?
-  
-  productId String @db.ObjectId
-  product Products @relation(fields: [productId], references: [id])
+
+  productId String   @db.ObjectId
+  product   Products @relation(fields: [productId], references: [id])
 
   cartId String @db.ObjectId
-  cart Cart @relation(fields: [cartId], references: [id])
+  cart   Cart   @relation(fields: [cartId], references: [id])
 }

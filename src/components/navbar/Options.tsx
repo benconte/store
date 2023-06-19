@@ -44,29 +44,29 @@ const Options = () => {
                         <span className='text-xs font-light text-gray-300 group-hover:underline cursor-pointer'>Account</span>
                     </div>
                     {isDropdown &&
-                        <div className="absolute h-auto top-10 right-0 w-40 bg-white rounded-lg overflow-hidden border border-gray-300 shadow-md">
-                            <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 mb-3 cursor-pointer text-gray-500 hover:text-white">
+                        <div className="z-50 absolute h-auto top-10 right-0 w-40 bg-white rounded-lg overflow-hidden border border-gray-300 shadow-md flex flex-col justify-start gap-3">
+                            <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 cursor-pointer text-gray-500 hover:text-white">
                                 <PersonOutlineIcon className="w-5 h-5 cursor-pointer" />
                                 <span className="text-sm">Profile</span>
                             </div>
 
-                            <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 mb-3 cursor-pointer text-gray-500 hover:text-white">
+                            <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 cursor-pointer text-gray-500 hover:text-white">
                                 <FavoriteBorderIcon className="w-5 h-5 cursor-pointer" />
                                 <span className="text-sm">Favorites</span>
                             </div>
 
-                            <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 mb-3 cursor-pointer text-gray-500 hover:text-white">
+                            <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 cursor-pointer text-gray-500 hover:text-white">
                                 <SettingsIcon className="w-5 h-5 cursor-pointer" />
                                 <span className="text-sm">Settings</span>
                             </div>
 
-                            <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 mb-3 cursor-pointer text-gray-500 hover:text-white">
+                            <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 cursor-pointer text-gray-500 hover:text-white">
                                 <HelpIcon className="w-5 h-5 cursor-pointer" />
                                 <span className="text-sm">Help</span>
                             </div>
 
                             <div
-                                className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 mb-3 cursor-pointer text-gray-500 hover:text-white"
+                                className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 cursor-pointer text-gray-500 hover:text-white"
                                 onClick={logout}
                             >
                                 <LogoutIcon className="w-5 h-5 cursor-pointer" />
