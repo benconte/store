@@ -1,26 +1,28 @@
-import { CartProduct } from "@/@types";
+import { CartState } from "@/@types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type InitialState = {
-    value: CartProduct[];
+    value: CartState[];
+    totalCart: number;
 }
 
 const initialState = {
-    value: [] as CartProduct[]
+    value: [] as CartState[],
+    totalCart: 0,
 } as InitialState;
 
 export const guestCart = createSlice({
     name: "guestCart",
     initialState,
     reducers: {
-        addCart: (state, action: PayloadAction<CartProduct>) => {
+        addGuestCart: (state, action: PayloadAction<CartState>) => {
             if (state.value.find((item) => item.product?.id === action.payload.product?.id)) {
                 return state; // Product already exists in the cart, return the current state
             }
 
             state.value.push(action.payload); // Product doesn't exist in the cart, add it to the state
         },
-        updateCart: (state, action: PayloadAction<CartProduct>) => {
+        updateGuestCart: (state, action: PayloadAction<CartState>) => {
             const updateCart = state.value.map((item) => {
                 if (item.product?.id === action.payload.product?.id) {
                     return {
@@ -33,11 +35,18 @@ export const guestCart = createSlice({
 
             state.value = updateCart;
         },
-        removeCart: (state, action: PayloadAction<string>) => {
+        removeGuestCart: (state, action: PayloadAction<string>) => {
             state.value = state.value.filter((item) => item.product?.id !== action.payload)
         },
     }
 });
 
-export const { addCart, removeCart, updateCart } = guestCart.actions;
+export const { addGuestCart, removeGuestCart, updateGuestCart } = guestCart.actions;
 export default guestCart.reducer;
+
+
+
+// INFO
+// addGuestCart: adds a product to the cart
+// updateGuestCart: updates a product in the cart
+// removeGuestCart: removes a product from the cart

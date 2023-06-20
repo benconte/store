@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
@@ -8,19 +8,24 @@ import clsx from 'clsx';
 import { calculateFinalPrice } from '@/utils/discountCalculator';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from '@/redux/store';
-import { CartProduct, Product, ProductCart } from '@/@types';
-import { addCart, removeCart } from '@/redux/features/guestCart-slice';
+import { CartState } from '@/@types';
+import { addGuestCart, removeGuestCart } from '@/redux/features/guestCart-slice';
+import { addUserCart, removeUserCart } from '@/redux/features/user-slice';
+import axios from 'axios';
 
 type Action = 'INCR' | 'DECR';
 
-const Form = ({ product }: CartProduct) => {
+const Form = ({ product }: CartState) => {
+  const [addToCardLoading, setAddToCartLoading] = useState(false);
   const [currentAmount, setCurrentAmount] = useState(1);
-
-  const isProductInCart = useAppSelector((state) => state.guestCartReducer.value.some(
-    (prod) => prod.product?.id === product?.id
-  ));
-
   const dispatch = useDispatch<AppDispatch>()
+
+  const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
+  const user = useAppSelector((state) => state.userCartReducer.value);
+  const isProductInCart = useAppSelector((state) => isAuth ?
+    state.userCartReducer.value.cart.some((prod) => prod.product?.id === product?.id) :
+    state.guestCartReducer.value.some((prod) => prod.product?.id === product?.id)
+  );
 
   const changeAmount = (action: Action) => {
     if (currentAmount === 0 && action !== "INCR") return;
@@ -33,15 +38,40 @@ const Form = ({ product }: CartProduct) => {
   }
 
   const addToCart = () => {
-    const payload: CartProduct = {
+    const payload: CartState = {
       product: { ...product },
-      productOrdered: 0,
+      productOrdered: currentAmount,
+    };
+
+    if (isAuth) {
+      setAddToCartLoading(true)
+      axios.post("/api/cart/add", { userId: user.id, payload })
+        .then((response) => {
+          dispatch(addUserCart(payload))
+          console.log(response.data)
+        })
+        .catch((err) => console.log(err))
+        .finally(() => setAddToCartLoading(false))
+
+    } else {
+      dispatch(addGuestCart(payload))
     }
-    dispatch(addCart(payload))
   }
 
   const removeFromCart = () => {
-    dispatch(removeCart(product?.id as string))
+    if (isAuth) {
+      setAddToCartLoading(true)
+      axios.post("/api/cart/delete", { userId: user.id, prodId: product?.id })
+        .then((response) => {
+          dispatch(removeUserCart(product?.id as string))
+          console.log(response.data)
+        })
+        .catch((err) => console.log(err))
+        .finally(() => setAddToCartLoading(false))
+
+    } else {
+      dispatch(removeGuestCart(product?.id as string))
+    }
   }
 
   const handleProductBuy = () => {
@@ -88,10 +118,12 @@ const Form = ({ product }: CartProduct) => {
       <div className="w-full flex flex-col gap-3 my-5">
         <button
           type="button"
-          className="w-full py-2 rounded-lg text-center cursor-pointer bg-orange-600 hover:bg-orange-700 text-white border-none outline-none text-sm"
+          className="w-full py-2 rounded-lg text-center cursor-pointer bg-orange-600 hover:bg-orange-700 text-white border-none outline-none text-sm flex items-center justify-center"
           onClick={!isProductInCart ? addToCart : removeFromCart}
         >
-          {isProductInCart ? "Remove From Cart" : "Add to Cart"}
+          {addToCardLoading ?
+            <div className="w-5 h-5 rounded-full border-2 border-white border-r-0 animate-spin" /> :
+            isProductInCart ? "Remove From Cart" : "Add to Cart"}
         </button>
         <button
           type="button"

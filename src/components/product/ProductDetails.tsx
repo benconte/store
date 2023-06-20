@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { Details, Form } from "@/components/product"
-import { CartProduct } from '@/@types'
+import { CartState } from '@/@types'
 
-const ProductDetails: FC<CartProduct> = ({product, productOrdered: quantity}) => {
+const ProductDetails: FC<CartState> = ({product, productOrdered: quantity}) => {
   return (
     <div className='w-full flex flex-col xl:flex-row items-start gap-4 bg-white py-5 px-3'>
         <Details product={product} />

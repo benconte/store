@@ -11,10 +11,17 @@ export async function POST(request: Request) {
                 email: email
             },
             include: {
-                cart: true
+                cart: {
+                    include: {
+                        product: true,
+                        user: true,
+                    }
+                }
             }
         });
 
+
+        console.log(user)
         return NextResponse.json(user);
     } catch (error) {
         console.log("ERROR", error)

@@ -20,14 +20,13 @@ function HandleAuth({ children }: HandleAuthProps) {
         if (session?.status !== "authenticated") {
             dispatch(userNotAuthenticated())
         } else {
-            dispatch(userAuthenticated())
 
             axios.post("/api/user", { email: session?.data?.user?.email })
                 .then((response) => {
-                    console.log(response.data)
-
                     dispatch(addUser(response.data))
+                    dispatch(userAuthenticated())
                 })
+                .catch((error) => console.log(error))
         }
     }, [session, dispatch])
     return (

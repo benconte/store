@@ -5,23 +5,12 @@ export type Product = Products & {
     category: Categories,
 }
 
-export type ProductCart = Products & {
-    brand: Brand,
-    category: Categories,
-} & {
-    productOrdered: number;
-}
-
 // type related to user cart
 export type UserState = User & {
-    cart: CartState
+    cart: CartState[]
 }
 
-export type CartState = Cart & {
-    cartProduct: CartProduct[]
-}
-
-export type CartProduct = {
+export type CartState = {
     product: Product;
     productOrdered: number;
 }

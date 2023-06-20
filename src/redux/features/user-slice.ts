@@ -1,4 +1,4 @@
-import { CartProduct, UserState } from "@/@types";
+import { CartState, UserState } from "@/@types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type InitialState = {
@@ -15,18 +15,18 @@ export const userCart = createSlice({
     initialState,
     reducers: {
         addUser: (state, action: PayloadAction<UserState>) => {
-            return {...state, ...action.payload}
+            return { ...state.value, value: { ...action.payload } }
         },
-        addCart: (state, action: PayloadAction<CartProduct>) => {
-            if (state.value.cart.cartProduct.map((item) => item.product?.id === action.payload.product?.id)) {
+        addUserCart: (state, action: PayloadAction<CartState>) => {
+            if (state.value.cart.some((item) => item.product?.id === action.payload.product?.id)) {
                 return state; // Product already exists in the cart, return the current state
             }
 
-            state.value.cart.cartProduct.push(action.payload); // Product doesn't exist in the cart, add it to the state
+            state.value.cart.push(action.payload); // Product doesn't exist in the cart, add it to the state
         },
-        updateCart: (state, action: PayloadAction<CartProduct>) => {
-            const updatedCart = state.value.cart.cartProduct.map((item) => {
-                if(item.product?.id === action.payload.product?.id) {
+        updateUserCart: (state, action: PayloadAction<CartState>) => {
+            const updatedCart = state.value.cart.map((item) => {
+                if (item.product?.id === action.payload.product?.id) {
                     return {
                         ...item,
                         productOrdered: action.payload.productOrdered
@@ -36,13 +36,24 @@ export const userCart = createSlice({
                 return item;
             })
 
-            state.value.cart.cartProduct = updatedCart;
+            state.value.cart = updatedCart;
         },
-        removeCart: (state, action: PayloadAction<string>) => {
-            state.value.cart.cartProduct = state.value.cart.cartProduct.filter((item) => item.product?.id !== action.payload)
+        removeUserCart: (state, action: PayloadAction<string>) => {
+            if (!state.value.cart) {
+                return state
+            }
+
+            state.value.cart = state.value.cart.filter((item) => item.product?.id !== action.payload)
         },
     }
 });
 
-export const { addUser, addCart, removeCart, updateCart } = userCart.actions;
+export const { addUser, addUserCart, removeUserCart, updateUserCart } = userCart.actions;
 export default userCart.reducer;
+
+
+// INFO
+// addUser -> adds the user to the state
+// addUserCart: adds a product to the cart
+// updateUserCart: updates a product in the cart
+// removeUserCart: removes a product from the cart

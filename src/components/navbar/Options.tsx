@@ -12,12 +12,15 @@ import HelpIcon from '@mui/icons-material/Help';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useState } from 'react';
 import { signOut } from 'next-auth/react';
+import Link from 'next/link';
 
 const Options = () => {
     const [isDropdown, setIsDropwdown] = useState(false)
 
-    const cartLength = useAppSelector((state) => state.guestCartReducer.value.length)
     const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated)
+    const cartLength = useAppSelector((state) => isAuth ?
+        state.userCartReducer.value.cart.length : state.guestCartReducer.value.length
+    )
     const dispatch = useDispatch<AppDispatch>()
 
     const openAuthModal = () => {
@@ -82,13 +85,15 @@ const Options = () => {
                 </div>
             }
 
-            <div className='flex items-center gap-2 group'>
-                <div className='relative'>
-                    <AddShoppingCartIcon className="w-7 h-7 text-[#F9B96E] cursor-pointer" />
-                    <sup className="absolute -top-3 -right-1 text-gray-300 z-10 font-semibold text-sm cursor-pointer">{cartLength}</sup>
+            <Link href="/cart" className="no-underline p-0 cursor-pointer">
+                <div className='flex items-center gap-2 group'>
+                    <div className='relative'>
+                        <AddShoppingCartIcon className="w-7 h-7 text-[#F9B96E] cursor-pointer" />
+                        <sup className="absolute -top-3 -right-1 text-gray-300 z-10 font-semibold text-sm cursor-pointer">{cartLength}</sup>
+                    </div>
+                    <span className='text-xs font-light text-gray-300 group-hover:underline cursor-pointer'>Cart</span>
                 </div>
-                <span className='text-xs font-light text-gray-300 group-hover:underline cursor-pointer'>Cart</span>
-            </div>
+            </Link>
         </div>
     )
 }

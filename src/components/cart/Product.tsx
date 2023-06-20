@@ -1,8 +1,8 @@
-import { CartProduct } from '@/@types'
+import { CartState } from '@/@types'
 import { FC } from 'react'
 
 interface ProductProps {
-  product: CartProduct
+  product: CartState
 }
 
 const Product: FC<ProductProps> = ({product}) => {
