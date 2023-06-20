@@ -3,7 +3,7 @@ import { Brand, Cart, Categories, Products, User } from "@prisma/client";
 export type Product = Products & {
     brand: Brand,
     category: Categories,
-} | null
+}
 
 export type ProductCart = Products & {
     brand: Brand,

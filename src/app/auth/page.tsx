@@ -58,13 +58,14 @@ const Auth = () => {
                 .then((callback) => {
                     if (callback?.error) {
                         toast.error('Invalid credentials!');
-                    }
-
-                    if (callback?.ok) {
+                    } else if (callback?.ok) {
+                        toast.success('Account created successfuly!');
                         router.push('/')
+                    } else {
+                        toast.error('Invalid credentials!');
                     }
                 })
-                .catch(() => toast.error('Something went wrong!'))
+                .catch(() => toast.error('Invalid credentials!'))
                 .finally(() => setIsLoading(false))
         }
 
@@ -76,10 +77,11 @@ const Auth = () => {
                 .then((callback) => {
                     if (callback?.error) {
                         toast.error('Invalid credentials!');
-                    }
-
-                    if (callback?.ok) {
+                    } else if (callback?.ok) {
+                        toast.success('Logged in successfuly!');
                         router.push('/')
+                    } else {
+                        toast.error('Invalid credentials!');
                     }
                 })
                 .finally(() => setIsLoading(false))

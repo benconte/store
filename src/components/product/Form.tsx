@@ -8,18 +8,18 @@ import clsx from 'clsx';
 import { calculateFinalPrice } from '@/utils/discountCalculator';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from '@/redux/store';
-import { Product, ProductCart } from '@/@types';
+import { CartProduct, Product, ProductCart } from '@/@types';
 import { addCart, removeCart } from '@/redux/features/guestCart-slice';
 
 type Action = 'INCR' | 'DECR';
 
-const Form = ({ product } : {product: Product}) => {
+const Form = ({ product }: CartProduct) => {
   const [currentAmount, setCurrentAmount] = useState(1);
 
   const isProductInCart = useAppSelector((state) => state.guestCartReducer.value.some(
-    (prod) => prod.id === product?.id
+    (prod) => prod.product?.id === product?.id
   ));
-  
+
   const dispatch = useDispatch<AppDispatch>()
 
   const changeAmount = (action: Action) => {
@@ -32,13 +32,12 @@ const Form = ({ product } : {product: Product}) => {
     }
   }
 
-  const records: Product = product
-
   const addToCart = () => {
-    dispatch(addCart({
-      ...product as ProductCart,
-      productOrdered: currentAmount,
-    }))
+    const payload: CartProduct = {
+      product: { ...product },
+      productOrdered: 0,
+    }
+    dispatch(addCart(payload))
   }
 
   const removeFromCart = () => {
