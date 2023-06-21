@@ -36,10 +36,23 @@ function Cart() {
     });
 
     return (
-        <main className="h-full px-2 md:px-7 lg:px-12 py-5 md:py-8 flex flex-col md:flex-row gap-3 items-start">
-            {cart.map((product) => (
-                <Product product={product} key={product.product?.id} />
-            ))}
+        <main className="h-full px-2 md:px-7 lg:px-12 py-5 md:py-8 flex flex-col lg:flex-row gap-3 items-start">
+            <div className="w-full bg-white px-3 sm:px-6 py-2 rounded-lg">
+                <header className="w-full py-4 border-b border-gray-400 mb-3 text-gray-900 font-semibold text-2xl">
+                    Shopping Cart
+                </header>
+                {cart.map((product) => (
+                    <Product product={product} key={product.product?.id} />
+                ))}
+
+                {/* subtotal section */}
+                <div className="w-full flex items-center justify-end pb-3">
+                    <p className="text-base text-gray-900">
+                        Subtotal ({cart.length} items):
+                        <b className="pl-2">${totalCartPrice}</b>
+                    </p>
+                </div>
+            </div>
             <CartTotal length={cart.length} total={totalCartPrice} />
         </main>
     )

@@ -13,15 +13,18 @@ export async function POST(request: Request) {
             include: {
                 cart: {
                     include: {
-                        product: true,
+                        product: {
+                            include: {
+                                brand: true,
+                                category: true,
+                            },
+                        },
                         user: true,
                     }
                 }
             }
         });
 
-
-        console.log(user)
         return NextResponse.json(user);
     } catch (error) {
         console.log("ERROR", error)

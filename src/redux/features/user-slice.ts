@@ -1,5 +1,6 @@
 import { CartState, UserState } from "@/@types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 
 type InitialState = {
     value: UserState;
@@ -29,14 +30,20 @@ export const userCart = createSlice({
                 if (item.product?.id === action.payload.product?.id) {
                     return {
                         ...item,
-                        productOrdered: action.payload.productOrdered
+                        productOrdered: action.payload.productOrdered,
                     }
                 }
 
                 return item;
             })
 
-            state.value.cart = updatedCart;
+            return {
+                ...state,
+                value: {
+                    ...state.value,
+                    cart: updatedCart,
+                }
+            }
         },
         removeUserCart: (state, action: PayloadAction<string>) => {
             if (!state.value.cart) {
