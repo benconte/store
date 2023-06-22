@@ -19,7 +19,7 @@ const Options = () => {
 
     const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated)
     const cartLength = useAppSelector((state) => isAuth ?
-        state.userCartReducer.value.cart.length : state.guestCartReducer.value.length
+        state.user.value.cart.length : state.guest.value.length
     )
     const dispatch = useDispatch<AppDispatch>()
 

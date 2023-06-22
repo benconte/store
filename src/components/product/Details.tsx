@@ -1,6 +1,6 @@
 'use client'
 
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import DiscountIcon from '@mui/icons-material/Discount';
 import { calculateFinalPrice } from '@/utils/discountCalculator';
 import Image from "next/image"
@@ -15,6 +15,11 @@ import small_4 from "../../../public/images/icons/small_4.png"
 import small_4_half from "../../../public/images/icons/small_4_half.png"
 import small_5 from "../../../public/images/icons/small_5.png"
 import { Product } from '@/@types';
+import { useDispatch } from 'react-redux';
+import { AppDispatch, useAppSelector } from '@/redux/store';
+import axios from 'axios';
+import { updateUserWishlist } from '@/redux/features/user-slice';
+import { openModal } from '@/redux/features/authModal';
 
 interface DetailsProps {
   product: Product
@@ -43,6 +48,28 @@ const Details: FC<DetailsProps> = ({ product }) => {
     } else {
       return <Image src={small_5} alt="Stars 5" />
     }
+  }
+
+  const [wishlistLoading, setWishlistLoading] = useState(false)
+  const dispatch = useDispatch<AppDispatch>();
+  const isProductInWishlist = useAppSelector((state) => state.user.value.wishlist.includes(product.id))
+  const userId = useAppSelector((state) => state.user.value.id);
+  const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
+
+  const handleWishlist = async () => {
+    if (isAuth) {
+      setWishlistLoading(true);
+      const response = await axios.post("/api/user/wishlist", { userId, prodId: product.id })
+      if (response.status !== 200) {
+        throw new Error("Unexpected response status")
+      }
+
+      dispatch(updateUserWishlist(response.data));
+      setWishlistLoading(false)
+    } else {
+      dispatch(openModal())
+    }
+
   }
   return (
     <div className='flex-1 basis-0'>
@@ -91,7 +118,7 @@ const Details: FC<DetailsProps> = ({ product }) => {
       ) : <small className='text-sm text-gray-500 my-3'>Discount unavalaible</small>}
 
       <div className="flex items-center gap-2 my-5">
-        <span className="text-sm text-gray-600">Choose color:</span>
+        <span className="text-sm text-gray-600">Available color:</span>
         <div className="flex items-center gap-3">
           <div className="w-5 h-5 rounded-full bg-red-500 cursor-pointer" />
           <div className="w-5 h-5 rounded-full bg-blue-500 cursor-pointer" />
@@ -105,7 +132,15 @@ const Details: FC<DetailsProps> = ({ product }) => {
           <p>{handleStars(4.6)}</p>
           <p>{product?.rating} product ratings</p>
         </div>
-        <span className="text-sm text-rose-600 hover:underline cursor-pointer">Add to my whishlist</span>
+        <span className="text-sm text-rose-600 hover:underline cursor-pointer flex items-center"
+          onClick={() => !wishlistLoading && handleWishlist()}
+        >
+          {isProductInWishlist ? "Remove from wishlist" : "Add to my wishlist"}
+
+          {wishlistLoading &&
+            <div className="ml-3 w-5 h-5 rounded-full border-2 border-rose-600 border-r-0 animate-spin" />
+          }
+        </span>
       </div>
 
       <div className="w-full py-5">

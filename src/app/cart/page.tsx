@@ -7,13 +7,13 @@ import { calculateFinalPrice } from "@/utils/discountCalculator"
 
 function Cart() {
     const cart = useAppSelector((state) => (
-        state.authReducer.isAuthenticated ? state.userCartReducer.value.cart : state.guestCartReducer.value
+        state.authReducer.isAuthenticated ? state.user.value.cart : state.guest.value
     ))
 
     const totalCartPrice = useAppSelector((state) => {
         if (state.authReducer.isAuthenticated) {
             let total = 0;
-            state.userCartReducer.value.cart.map((item) => {
+            state.user.value.cart.map((item) => {
                 if (item.product.discount) {
                     total = total + (calculateFinalPrice(item.product.price, item.product.discount) * item.productOrdered)
                 } else {
@@ -24,7 +24,7 @@ function Cart() {
             return total;
         } else {
             let total = 0;
-            state.guestCartReducer.value.map((item) => {
+            state.guest.value.map((item) => {
                 if (item.product.discount) {
                     total = total + (calculateFinalPrice(item.product.price, item.product.discount) * item.productOrdered)
                 } else {

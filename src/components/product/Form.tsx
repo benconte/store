@@ -21,10 +21,10 @@ const Form = ({ product }: CartState) => {
   const dispatch = useDispatch<AppDispatch>()
 
   const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
-  const user = useAppSelector((state) => state.userCartReducer.value);
+  const user = useAppSelector((state) => state.user.value);
   const isProductInCart = useAppSelector((state) => isAuth ?
-    state.userCartReducer.value.cart.some((prod) => prod.product?.id === product?.id) :
-    state.guestCartReducer.value.some((prod) => prod.product?.id === product?.id)
+    state.user.value.cart.some((prod) => prod.product?.id === product?.id) :
+    state.guest.value.some((prod) => prod.product?.id === product?.id)
   );
 
   const changeAmount = (action: Action) => {

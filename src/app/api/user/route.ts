@@ -11,6 +11,7 @@ export async function POST(request: Request) {
                 email: email
             },
             include: {
+                wishlist: true,
                 cart: {
                     include: {
                         product: {
@@ -25,7 +26,17 @@ export async function POST(request: Request) {
             }
         });
 
-        return NextResponse.json(user);
+        if(!user) {
+            return new NextResponse("User not found", { status: 404 })
+        }
+
+        const wishlistProductIds: string[] = user.wishlist.map((prod) => prod.id)
+
+        const updatedUser = {
+            ...user,
+            wishlist: wishlistProductIds
+        }
+        return NextResponse.json(updatedUser);
     } catch (error) {
         console.log("ERROR", error)
         return new NextResponse("Internal Server Error", { status: 500 })

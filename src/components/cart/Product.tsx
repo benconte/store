@@ -9,9 +9,10 @@ import AddIcon from '@mui/icons-material/Add';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useDispatch } from 'react-redux'
 import { AppDispatch, useAppSelector } from '@/redux/store'
-import { removeUserCart, updateUserCart } from '@/redux/features/user-slice'
+import { removeUserCart, updateUserCart, updateUserWishlist } from '@/redux/features/user-slice'
 import axios from 'axios'
 import clsx from 'clsx'
+import { openModal } from '@/redux/features/authModal'
 
 interface ProductProps {
   product: CartState
@@ -23,12 +24,14 @@ const Product: FC<ProductProps> = ({ product: item }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isDropdown, setIsDropdown] = useState(false);
   const [isProductDelete, setIsProductDelete] = useState(false);
+  const [wishlistLoading, setWishlistLoading] = useState(false)
 
   const dispatch = useDispatch<AppDispatch>();
   const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
-  const userId = useAppSelector((state) => state.userCartReducer.value.id)
+  const userId = useAppSelector((state) => state.user.value.id);
+  const isProductInWishlist = useAppSelector((state) => state.user.value.wishlist.includes(item.product.id))
 
-  const changeAmount = async (action: Action) => {
+  const changeQuantity = async (action: Action) => {
     if (item.productOrdered === 1 && action !== "INCR") return;
 
     if (action === "INCR") {
@@ -96,6 +99,21 @@ const Product: FC<ProductProps> = ({ product: item }) => {
 
     }
   }
+
+  const handleWishlist = async () => {
+    if (isAuth) {
+      setWishlistLoading(true);
+      const response = await axios.post("/api/user/wishlist", { userId, prodId: item.product.id })
+      if (response.status !== 200) {
+        throw new Error("Unexpected response status")
+      }
+
+      dispatch(updateUserWishlist(response.data));
+      setWishlistLoading(false)
+    } else {
+      dispatch(openModal())
+    }
+  }
   return (
     <div className='w-full flex flex-col relative sm:flex-row gap-4 items-start mb-5 border-b border-gray-300 py-5'>
       {isProductDelete && (
@@ -135,7 +153,7 @@ const Product: FC<ProductProps> = ({ product: item }) => {
                       'text-gray-900 hover:text-white flex items-center hover:bg-darkBlue p-2',
                       isLoading ? "cursor-not-allowed" : "cursor-pointer"
                     )}
-                    onClick={() => !isLoading ? changeAmount("INCR") : null}
+                    onClick={() => !isLoading ? changeQuantity("INCR") : null}
                   >
                     <AddIcon className="w-5 h-5" />
                     Increase
@@ -145,7 +163,7 @@ const Product: FC<ProductProps> = ({ product: item }) => {
                       'text-gray-900 hover:text-white flex items-center hover:bg-darkBlue p-2',
                       isLoading ? "cursor-not-allowed" : "cursor-pointer"
                     )}
-                    onClick={() => !isLoading ? changeAmount("DECR") : null}
+                    onClick={() => !isLoading ? changeQuantity("DECR") : null}
                   >
                     <RemoveIcon className="w-5 h-5" />
                     Decrease
@@ -155,7 +173,15 @@ const Product: FC<ProductProps> = ({ product: item }) => {
             </div>
 
             <span className="text-sm text-[#0066C0] hover:underline cursor-pointer" onClick={removeFromCart}>Delete</span>
-            <span className="text-sm text-rose-600 hover:underline cursor-pointer">Add to my whishlist</span>
+            <span className="text-sm text-rose-600 hover:underline cursor-pointer flex items-center"
+              onClick={() => !wishlistLoading && handleWishlist()}
+            >
+              {isProductInWishlist ? "Remove from wishlist" : "Add to my wishlist"}
+
+              {wishlistLoading &&
+                <div className="ml-3 w-5 h-5 rounded-full border-2 border-rose-600 border-r-0 animate-spin" />
+              }
+            </span>
           </div>
         </div>
 

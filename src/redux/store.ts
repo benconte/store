@@ -7,8 +7,8 @@ import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const store = configureStore({
     reducer: {
-        guestCartReducer,
-        userCartReducer,
+        guest: guestCartReducer,
+        user: userCartReducer,
         authModalReducer,
         authReducer,
     }
