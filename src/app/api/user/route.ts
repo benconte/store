@@ -5,7 +5,7 @@ export async function POST(request: Request) {
     try {
         const body = await request.json();
         const { email } = body;
-
+        console.log("I was called. Email is:", email)
         const user = await prisma.user.findUnique({
             where: {
                 email: email

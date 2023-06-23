@@ -55,10 +55,20 @@ export const userCart = createSlice({
         updateUserWishlist: (state, action: PayloadAction<string[]>) => {
             state.value.wishlist = action.payload
         },
+        clearCart: (state) => {
+            state.value.cart = []
+        },
     }
 });
 
-export const { addUser, addUserCart, removeUserCart, updateUserCart, updateUserWishlist } = userCart.actions;
+export const { 
+    addUser, 
+    addUserCart, 
+    removeUserCart, 
+    updateUserCart, 
+    updateUserWishlist, 
+    clearCart 
+} = userCart.actions;
 export default userCart.reducer;
 
 

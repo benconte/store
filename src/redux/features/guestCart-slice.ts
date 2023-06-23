@@ -15,6 +15,18 @@ export const guestCart = createSlice({
     name: "guestCart",
     initialState,
     reducers: {
+        addGuest: (state, action: PayloadAction<CartState[]>) => {
+            const newProducts = action.payload.filter((newProduct) => {
+                // Check if the new product already exists in the state
+                const existingProduct = state.value.find(
+                    (item) => item.product.id === newProduct.product.id
+                );
+
+                return !existingProduct; // Only add the new product if it doesn't exist in the state
+            });
+
+            state.value = [...state.value, ...newProducts];
+        },
         addGuestCart: (state, action: PayloadAction<CartState>) => {
             if (state.value.find((item) => item.product?.id === action.payload.product?.id)) {
                 return state; // Product already exists in the cart, return the current state
@@ -41,7 +53,7 @@ export const guestCart = createSlice({
     }
 });
 
-export const { addGuestCart, removeGuestCart, updateGuestCart } = guestCart.actions;
+export const { addGuestCart, removeGuestCart, updateGuestCart, addGuest } = guestCart.actions;
 export default guestCart.reducer;
 
 

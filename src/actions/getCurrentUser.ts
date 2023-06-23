@@ -7,25 +7,43 @@ const getCurrentUser = async () => {
     const session = await getSession();
 
     if (!session?.user?.email) {
-      return null;
+      return {} as UserState
     }
 
     const currentUser = await prisma.user.findUnique({
       where: {
-        email: session.user.email as string
+        email: session.user.email
       },
       include: {
-        cart: true,
+        wishlist: true,
+        cart: {
+          include: {
+            product: {
+              include: {
+                brand: true,
+                category: true,
+              },
+            },
+            user: true,
+          }
+        }
       }
     });
 
     if (!currentUser) {
-      return null;
+      return {} as UserState
     }
 
-    return currentUser;
+    const wishlistProductIds: string[] = currentUser.wishlist.map((prod) => prod.id)
+
+    const updatedUser: UserState = {
+      ...currentUser,
+      wishlist: wishlistProductIds
+    }
+
+    return updatedUser;
   } catch (error: any) {
-    return null;
+    return {} as UserState
   }
 };
 

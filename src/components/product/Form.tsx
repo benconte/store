@@ -54,7 +54,17 @@ const Form = ({ product }: CartState) => {
         .finally(() => setAddToCartLoading(false))
 
     } else {
+      setAddToCartLoading(true)
+
+      // Update guest cart in local storage
+      // local storage only takes in a string. So we need to parse it back and forth
+      const guestCart = JSON.parse(localStorage.getItem('guestCart') || '[]');
+      const updatedGuestCart = [...guestCart, payload];
+      localStorage.setItem('guestCart', JSON.stringify(updatedGuestCart));
+
+
       dispatch(addGuestCart(payload))
+      setAddToCartLoading(false)
     }
   }
 
@@ -70,7 +80,15 @@ const Form = ({ product }: CartState) => {
         .finally(() => setAddToCartLoading(false))
 
     } else {
+      setAddToCartLoading(true)
+
+      // Update guest cart in local storage
+      const guestCart: CartState[] = JSON.parse(localStorage.getItem('guestCart') || '[]');
+      const updatedGuestCart = guestCart.filter((prod) => prod.product.id !== product?.id)
+      localStorage.setItem('guestCart', JSON.stringify(updatedGuestCart));
+
       dispatch(removeGuestCart(product?.id as string))
+      setAddToCartLoading(false)
     }
   }
 

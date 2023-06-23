@@ -13,6 +13,7 @@ import { removeUserCart, updateUserCart, updateUserWishlist } from '@/redux/feat
 import axios from 'axios'
 import clsx from 'clsx'
 import { openModal } from '@/redux/features/authModal'
+import { removeGuestCart, updateGuestCart } from '@/redux/features/guestCart-slice'
 
 interface ProductProps {
   product: CartState
@@ -29,7 +30,10 @@ const Product: FC<ProductProps> = ({ product: item }) => {
   const dispatch = useDispatch<AppDispatch>();
   const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
   const userId = useAppSelector((state) => state.user.value.id);
-  const isProductInWishlist = useAppSelector((state) => state.user.value.wishlist.includes(item.product.id))
+  const isProductInWishlist = useAppSelector((state) => isAuth ?
+    state.user.value.wishlist.includes(item.product.id) :
+    false
+  )
 
   const changeQuantity = async (action: Action) => {
     if (item.productOrdered === 1 && action !== "INCR") return;
@@ -53,6 +57,15 @@ const Product: FC<ProductProps> = ({ product: item }) => {
 
         dispatch(updateUserCart(payload));
         setIsLoading(false);
+
+      } else {
+        setIsLoading(true);
+        const payload: CartState = {
+          product: { ...item.product },
+          productOrdered: item.productOrdered + 1,
+        }
+        dispatch(updateGuestCart(payload));
+        setIsLoading(false);
       }
     } else {
       if (isAuth) {
@@ -73,19 +86,26 @@ const Product: FC<ProductProps> = ({ product: item }) => {
 
         dispatch(updateUserCart(payload));
         setIsLoading(false);
+      } else {
+        setIsLoading(true);
+        const payload: CartState = {
+          product: { ...item.product },
+          productOrdered: item.productOrdered - 1,
+        }
+        dispatch(updateGuestCart(payload));
+        setIsLoading(false);
       }
     }
   };
 
   const removeFromCart = async () => {
+    const payload = {
+      prodId: item.product.id,
+      userId,
+    }
+
     if (isAuth) {
-      setIsProductDelete(true);
-
-      const payload = {
-        prodId: item.product.id,
-        userId,
-      }
-
+      setIsProductDelete(true); 
       const response = await axios.post("/api/cart/delete", { ...payload })
       if (response.status !== 200) {
         setIsProductDelete(false);
@@ -96,7 +116,9 @@ const Product: FC<ProductProps> = ({ product: item }) => {
       setIsProductDelete(false);
     }
     else {
-
+      setIsProductDelete(true);
+      dispatch(removeGuestCart(payload.prodId));
+      setIsProductDelete(false);
     }
   }
 

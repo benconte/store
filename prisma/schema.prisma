@@ -25,6 +25,7 @@ model User {
 
   accounts Account[]
   cart     Cart[]
+  orders   Orders[]
 }
 
 model Account {
@@ -86,6 +87,8 @@ model Products {
   wishlistedBy    User[]   @relation(fields: [wishlistedByIds], references: [id])
 
   cartsBelongTo Cart[]
+
+  orders Orders[]
 }
 
 model Cart {
@@ -97,4 +100,15 @@ model Cart {
 
   userId String @db.ObjectId
   user   User   @relation(fields: [userId], references: [id])
+}
+
+model Orders {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  quantity Float
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  productId String   @db.ObjectId
+  product    Products @relation(fields: [productId], references: [id])
 }

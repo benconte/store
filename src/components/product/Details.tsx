@@ -52,9 +52,12 @@ const Details: FC<DetailsProps> = ({ product }) => {
 
   const [wishlistLoading, setWishlistLoading] = useState(false)
   const dispatch = useDispatch<AppDispatch>();
-  const isProductInWishlist = useAppSelector((state) => state.user.value.wishlist.includes(product.id))
   const userId = useAppSelector((state) => state.user.value.id);
   const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
+  const isProductInWishlist = useAppSelector((state) => isAuth? 
+    state.user.value.wishlist.includes(product.id) :
+    false
+  )
 
   const handleWishlist = async () => {
     if (isAuth) {
