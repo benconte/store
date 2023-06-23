@@ -11,6 +11,7 @@ import AuthSocialButton from './AuthSocialButton';
 import axios from 'axios';
 import { signIn, useSession } from 'next-auth/react';
 import { toast } from "react-hot-toast";
+import { useRouter } from 'next/navigation';
 
 interface RegisterProps {
   closeAuthModal: () => void;
@@ -22,6 +23,7 @@ const Register: FC<RegisterProps> = ({
   closeAuthModal
 }) => {
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -50,6 +52,7 @@ const Register: FC<RegisterProps> = ({
 
       if(callback?.ok) {
         closeAuthModal()
+        router.refresh()
       }
     })
     .catch(() => {
@@ -69,6 +72,7 @@ const Register: FC<RegisterProps> = ({
 
       if(callback?.ok) {
         closeAuthModal()
+        router.refresh()
       }
     })
     .finally(() => setIsLoading(false))

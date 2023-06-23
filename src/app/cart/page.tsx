@@ -3,8 +3,7 @@
 import CartTotal from "@/components/cart/CartTotal"
 import OrderSuccess from "@/components/cart/OrderSuccessful"
 import Product from "@/components/cart/Product"
-import { openModal } from "@/redux/features/authModal"
-import { clearCart } from "@/redux/features/user-slice"
+import { clearCart } from "@/redux/features/guestCart-slice"
 import { AppDispatch, useAppSelector } from "@/redux/store"
 import { calculateFinalPrice } from "@/utils/discountCalculator"
 import axios from "axios"
@@ -50,7 +49,7 @@ function Cart() {
 
     const clearCartState = async () => {
         if (!isAuth) {
-            dispatch(openModal());
+            dispatch(clearCart());
             return;
         }
 

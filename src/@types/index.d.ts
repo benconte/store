@@ -15,5 +15,5 @@ export type UserState = User & {
 // user cart type
 export type CartState = {
     product: Product;
-    productOrdered: number | null;
+    productOrdered: number;
 }

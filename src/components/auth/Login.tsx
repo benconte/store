@@ -9,6 +9,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import AuthSocialButton from './AuthSocialButton';
 import { signIn, useSession } from 'next-auth/react';
 import { toast } from "react-hot-toast";
+import { useRouter } from 'next/navigation';
 
 interface LoginProps {
   closeAuthModal: () => void;
@@ -19,7 +20,8 @@ const Login: FC<LoginProps> = ({
   changeTab,
   closeAuthModal
 }) => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -47,6 +49,7 @@ const Login: FC<LoginProps> = ({
         if (callback?.ok) {
           toast.success("Logged in successfully");
           closeAuthModal()
+          router.refresh()
         }
       })
       .finally(() => setIsLoading(false))
@@ -64,6 +67,7 @@ const Login: FC<LoginProps> = ({
         if (callback?.ok) {
           toast.success("Logged in successfully");
           closeAuthModal()
+          router.refresh()
         }
       })
       .finally(() => setIsLoading(false))

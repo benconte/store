@@ -4,7 +4,6 @@ import {
   BrandsMarqueu,
   Categories,
   FeaturedProducts,
-  Footer,
   ProductSuggestions,
   Specialproducts
 } from "@/components/home";

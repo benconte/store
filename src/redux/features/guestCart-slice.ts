@@ -32,10 +32,17 @@ export const guestCart = createSlice({
                 return state; // Product already exists in the cart, return the current state
             }
 
-            state.value.push(action.payload); // Product doesn't exist in the cart, add it to the state
+            // Update guest cart in local storage
+            // local storage only takes in a string. So we need to parse it back and forth
+            const guestCart: CartState[] = JSON.parse(localStorage.getItem('guestCart') || '[]');
+            const updatedGuestCart = [...guestCart, action.payload];
+            localStorage.setItem('guestCart', JSON.stringify(updatedGuestCart));
+
+            state.value = updatedGuestCart;
         },
         updateGuestCart: (state, action: PayloadAction<CartState>) => {
-            const updateCart = state.value.map((item) => {
+            const guestCart: CartState[] = JSON.parse(localStorage.getItem('guestCart') || '[]');
+            const updateCart = guestCart.map((item) => {
                 if (item.product?.id === action.payload.product?.id) {
                     return {
                         ...item,
@@ -45,15 +52,25 @@ export const guestCart = createSlice({
                 return item;
             });
 
+            localStorage.setItem('guestCart', JSON.stringify(updateCart));
             state.value = updateCart;
         },
         removeGuestCart: (state, action: PayloadAction<string>) => {
-            state.value = state.value.filter((item) => item.product?.id !== action.payload)
+            // Update guest cart in local storage
+            const guestCart: CartState[] = JSON.parse(localStorage.getItem('guestCart') || '[]');
+            const updatedGuestCart = guestCart.filter((prod) => prod.product.id !== action.payload)
+            localStorage.setItem('guestCart', JSON.stringify(updatedGuestCart));
+
+            state.value = updatedGuestCart
+        },
+        clearCart: (state) => {
+            localStorage.setItem('guestCart', JSON.stringify([]));
+            state.value = [];
         },
     }
 });
 
-export const { addGuestCart, removeGuestCart, updateGuestCart, addGuest } = guestCart.actions;
+export const { addGuestCart, removeGuestCart, updateGuestCart, addGuest, clearCart } = guestCart.actions;
 export default guestCart.reducer;
 
 

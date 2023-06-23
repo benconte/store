@@ -72,7 +72,6 @@ const Details: FC<DetailsProps> = ({ product }) => {
     } else {
       dispatch(openModal())
     }
-
   }
   return (
     <div className='flex-1 basis-0'>
