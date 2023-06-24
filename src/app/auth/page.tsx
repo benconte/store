@@ -11,20 +11,24 @@ import { signIn, useSession } from 'next-auth/react';
 import { toast } from "react-hot-toast";
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { useSearchParams } from 'next/navigation'
 
 type Variant = 'LOGIN' | 'REGISTER';
 
 const Auth = () => {
     const session = useSession();
+    const searchParams = useSearchParams()
     const router = useRouter();
     const [variant, setVariant] = useState<Variant>('LOGIN');
     const [isLoading, setIsLoading] = useState(false);
-
+    
     useEffect(() => {
         if (session?.status === 'authenticated') {
-            router.push('/')
+            // Redirect to the previous page or a default route
+            const callbackUrl = searchParams.get('callbackUrl') || '/';
+            router.push(callbackUrl);
         }
-    }, [session?.status, router]);
+    }, [session?.status, router, searchParams]);
 
     const toggleVariant = useCallback(() => {
         if (variant === 'LOGIN') {
@@ -60,7 +64,11 @@ const Auth = () => {
                         toast.error('Invalid credentials!');
                     } else if (callback?.ok) {
                         toast.success('Account created successfuly!');
-                        router.push('/')
+
+                        // Redirect to the previous page or a default route
+                        const callbackUrl = searchParams.get('callbackUrl') || '/'; // Use callbackUrl from query parameter if available
+                        router.push(callbackUrl);
+
                     } else {
                         toast.error('Invalid credentials!');
                     }
@@ -79,7 +87,11 @@ const Auth = () => {
                         toast.error('Invalid credentials!');
                     } else if (callback?.ok) {
                         toast.success('Logged in successfuly!');
-                        router.push('/')
+                        
+                        // Redirect to the previous page or a default route
+                        const callbackUrl = searchParams.get('callbackUrl') || '/'; // Use callbackUrl from query parameter if available
+                        router.push(callbackUrl);
+
                     } else {
                         toast.error('Invalid credentials!');
                     }
@@ -99,7 +111,10 @@ const Auth = () => {
 
                 if (callback?.ok) {
                     toast.success("Logged in successfully");
-                    router.push('/')
+                    
+                    // Redirect to the previous page or a default route
+                    const callbackUrl = searchParams.get('callbackUrl') || '/'; // Use callbackUrl from query parameter if available
+                    router.push(callbackUrl);
                 }
             })
             .finally(() => setIsLoading(false))

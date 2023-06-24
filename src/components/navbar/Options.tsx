@@ -48,10 +48,12 @@ const Options = () => {
                     </div>
                     {isDropdown &&
                         <div className="z-50 absolute h-auto top-10 right-0 w-40 bg-white rounded-lg overflow-hidden border border-gray-300 shadow-md flex flex-col justify-start gap-3">
-                            <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 cursor-pointer text-gray-500 hover:text-white">
-                                <PersonOutlineIcon className="w-5 h-5 cursor-pointer" />
-                                <span className="text-sm">Profile</span>
-                            </div>
+                            <Link href="/profile" className="no-underline p-0 cursor-pointer">
+                                <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 cursor-pointer text-gray-500 hover:text-white">
+                                    <PersonOutlineIcon className="w-5 h-5 cursor-pointer" />
+                                    <span className="text-sm">Profile</span>
+                                </div>
+                            </Link>
 
                             <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 cursor-pointer text-gray-500 hover:text-white">
                                 <FavoriteBorderIcon className="w-5 h-5 cursor-pointer" />

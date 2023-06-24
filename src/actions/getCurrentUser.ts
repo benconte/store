@@ -14,34 +14,13 @@ const getCurrentUser = async () => {
       where: {
         email: session.user.email
       },
-      include: {
-        wishlist: true,
-        cart: {
-          include: {
-            product: {
-              include: {
-                brand: true,
-                category: true,
-              },
-            },
-            user: true,
-          }
-        }
-      }
     });
 
     if (!currentUser) {
       return {} as UserState
     }
 
-    const wishlistProductIds: string[] = currentUser.wishlist.map((prod) => prod.id)
-
-    const updatedUser: UserState = {
-      ...currentUser,
-      wishlist: wishlistProductIds
-    }
-
-    return updatedUser;
+    return currentUser;
   } catch (error: any) {
     return {} as UserState
   }

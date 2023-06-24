@@ -20,7 +20,7 @@ const Footer = () => {
                     <input
                         type="email"
                         placeholder='your email'
-                        className="w-full md:max-w-xl outline-none border-none px-2 sm:px-5 text-gray-900 text-xs sm:text-sm font-semibold"
+                        className="w-full md:max-w-xl outline-none border-none px-2 sm:px-2 text-gray-900 text-xs sm:text-sm font-semibold"
                     />
                     <button type="button" className="text-sm bg-darkBlue px-1 py-1 sm:py-2 text-white uppercase rounded-lg ">
                         Subscribe
