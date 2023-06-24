@@ -7,7 +7,7 @@ export type Product = Products & {
 
 // type related to user
 export type UserState = User & {
-    wishlist: string[]
+    wishlist: Product[]
 } & {
     cart: CartState[]
 }

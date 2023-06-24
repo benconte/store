@@ -30,13 +30,7 @@ export async function POST(request: Request) {
             return new NextResponse("User not found", { status: 404 })
         }
 
-        const wishlistProductIds: string[] = user.wishlist.map((prod) => prod.id)
-
-        const updatedUser = {
-            ...user,
-            wishlist: wishlistProductIds
-        }
-        return NextResponse.json(updatedUser);
+        return NextResponse.json(user);
     } catch (error) {
         console.log("ERROR", error)
         return new NextResponse("Internal Server Error", { status: 500 })

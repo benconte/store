@@ -30,9 +30,8 @@ const Product: FC<ProductProps> = ({ product: item }) => {
   const dispatch = useDispatch<AppDispatch>();
   const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
   const userId = useAppSelector((state) => state.user.value.id);
-  const isProductInWishlist = useAppSelector((state) => isAuth ?
-    state.user.value.wishlist.includes(item.product.id) :
-    false
+  const isProductInWishlist = useAppSelector((state) =>
+    isAuth ? state.user.value.wishlist.some((prod) => prod.id === item.product.id) : false
   )
 
   const changeQuantity = async (action: Action) => {
@@ -105,7 +104,7 @@ const Product: FC<ProductProps> = ({ product: item }) => {
     }
 
     if (isAuth) {
-      setIsProductDelete(true); 
+      setIsProductDelete(true);
       const response = await axios.post("/api/cart/delete", { ...payload })
       if (response.status !== 200) {
         setIsProductDelete(false);

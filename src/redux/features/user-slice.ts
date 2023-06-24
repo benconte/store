@@ -1,4 +1,4 @@
-import { CartState, UserState } from "@/@types";
+import { CartState, Product, UserState } from "@/@types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -52,7 +52,7 @@ export const userCart = createSlice({
 
             state.value.cart = state.value.cart.filter((item) => item.product?.id !== action.payload)
         },
-        updateUserWishlist: (state, action: PayloadAction<string[]>) => {
+        updateUserWishlist: (state, action: PayloadAction<Product[]>) => {
             state.value.wishlist = action.payload
         },
         clearCart: (state) => {

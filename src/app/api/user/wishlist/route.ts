@@ -40,8 +40,7 @@ export async function POST(request: Request) {
                 }
             })
 
-            const productIds = updatedUser.wishlist.map((prod) => prod.id);
-            return NextResponse.json(productIds);
+            return NextResponse.json(updatedUser.wishlist);
         }
 
         const updatedUser = await prisma.user.update({
@@ -60,8 +59,7 @@ export async function POST(request: Request) {
             },
         })
 
-        const productIds = updatedUser.wishlist.map((prod) => prod.id);
-        return NextResponse.json(productIds);
+        return NextResponse.json(updatedUser.wishlist);
     } catch (error) {
         console.log("[ERROR]", error)
         return new NextResponse("Internal Server Error", { status: 500 })

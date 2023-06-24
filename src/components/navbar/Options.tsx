@@ -36,10 +36,12 @@ const Options = () => {
                 <CachedIcon className="w-7 h-7 text-gray-300 cursor-pointer" />
                 <p className='text-xs font-light text-gray-300 group-hover:underline cursor-pointer'>Compare Products</p>
             </div>
-            <div className='flex items-center gap-2 group'>
-                <FavoriteBorderIcon className="w-7 h-7 text-gray-300 cursor-pointer" />
-                <span className='text-xs font-light text-gray-300 group-hover:underline cursor-pointer'>Favorite Whishlist</span>
-            </div>
+            <Link href="/wishlist" className="no-underline p-0 cursor-pointer">
+                <div className='flex items-center gap-2 group'>
+                    <FavoriteBorderIcon className="w-7 h-7 text-gray-300 cursor-pointer" />
+                    <span className='text-xs font-light text-gray-300 group-hover:underline cursor-pointer'>Favorite Whishlist</span>
+                </div>
+            </Link>
             {isAuth ?
                 <div className='relative flex items-center gap-2 group'>
                     <div className="cursor-pointer flex items-center gap-2" onClick={() => setIsDropwdown(!isDropdown)}>

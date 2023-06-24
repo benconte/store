@@ -54,9 +54,8 @@ const Details: FC<DetailsProps> = ({ product }) => {
   const dispatch = useDispatch<AppDispatch>();
   const userId = useAppSelector((state) => state.user.value.id);
   const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
-  const isProductInWishlist = useAppSelector((state) => isAuth? 
-    state.user.value.wishlist.includes(product.id) :
-    false
+  const isProductInWishlist = useAppSelector((state) =>
+    isAuth ? state.user.value.wishlist.some((prod) => prod.id === product.id) : false
   )
 
   const handleWishlist = async () => {
@@ -67,6 +66,7 @@ const Details: FC<DetailsProps> = ({ product }) => {
         throw new Error("Unexpected response status")
       }
 
+      console.log(response.data)
       dispatch(updateUserWishlist(response.data));
       setWishlistLoading(false)
     } else {

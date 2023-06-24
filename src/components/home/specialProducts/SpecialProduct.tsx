@@ -29,9 +29,8 @@ const SpecialProduct: FC<SpecialProductProps> = ({ product }) => {
         state.user.value.cart.some((prod) => prod.product?.id === product.id) :
         state.guest.value.some((prod) => prod.product?.id === product.id)
     );
-    const isProductInWishlist = useAppSelector((state) => isAuth ?
-        state.user.value.wishlist.includes(product.id) :
-        false
+    const isProductInWishlist = useAppSelector((state) =>
+        isAuth ? state.user.value.wishlist.some((prod) => prod.id === product.id) : false
     )
     const userId = useAppSelector((state) => state.user.value.id);
 
