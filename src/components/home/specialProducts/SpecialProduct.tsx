@@ -7,7 +7,7 @@ import { AppDispatch, useAppSelector } from '@/redux/store';
 import axios from 'axios';
 import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { handleStars } from '@/actions/handleStars'
+import { handleStars } from '@/utils/handleStars'
 import Image from 'next/image'
 import Link from 'next/link'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';

@@ -5,7 +5,7 @@ import { FC, useState } from 'react'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Image from 'next/image';
-import { handleStars } from '@/actions/handleStars';
+import { handleStars } from '@/utils/handleStars';
 import Link from 'next/link';
 import { AppDispatch, useAppSelector } from '@/redux/store';
 import { useDispatch } from 'react-redux';

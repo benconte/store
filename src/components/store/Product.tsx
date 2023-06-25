@@ -1,7 +1,7 @@
 'use client'
 
 import { Product } from '@/@types'
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Image from 'next/image';
@@ -12,12 +12,13 @@ import { useDispatch } from 'react-redux';
 import { openModal } from '@/redux/features/authModal';
 import axios from 'axios';
 import { updateUserWishlist } from '@/redux/features/user-slice';
+import { useRouter } from 'next/navigation';
 
 interface ProductProps {
     product: Product
 }
 
-const FeaturedProduct: FC<ProductProps> = ({ product }) => {
+const Product: FC<ProductProps> = ({ product }) => {
     const [wishlistLoading, setWishlistLoading] = useState(false)
     const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated)
     const isProductInWishlist = useAppSelector((state) =>
@@ -26,6 +27,7 @@ const FeaturedProduct: FC<ProductProps> = ({ product }) => {
     const userId = useAppSelector((state) => state.user.value.id);
 
     const dispatch = useDispatch<AppDispatch>()
+    const router = useRouter()
 
     const handleWishlist = async () => {
         if (isAuth) {
@@ -36,6 +38,7 @@ const FeaturedProduct: FC<ProductProps> = ({ product }) => {
             }
 
             dispatch(updateUserWishlist(response.data));
+            router.refresh()
             setWishlistLoading(false)
         } else {
             dispatch(openModal())
@@ -67,9 +70,7 @@ const FeaturedProduct: FC<ProductProps> = ({ product }) => {
                 <div className='flex-1 flex flex-col gap-3'>
                     <p className='text-sm text-[#F9B96E] font-semibold'>Brand: {product?.brand.name}</p>
                     <h3 className="text-sm text-gray-900 line-clamp-2">{product?.name}</h3>
-                    <div>
-                        {handleStars(product?.rating as number)}
-                    </div>
+                    
                     <p className="text-sm text-gray-900">${product?.price}</p>
                 </div>
             </Link>
@@ -77,4 +78,4 @@ const FeaturedProduct: FC<ProductProps> = ({ product }) => {
     )
 }
 
-export default FeaturedProduct
+export default Product

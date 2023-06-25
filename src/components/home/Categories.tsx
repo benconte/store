@@ -1,12 +1,19 @@
+'use client'
+
 import { useCategories } from '@/hooks/useCategories'
 import { useCategoryServices } from '@/hooks/useCategoryServices'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const Categories = () => {
     const services = useCategoryServices()
     const categories = useCategories()
-
+    const router = useRouter()
+    const handleFilter = (category: string) => {
+        router.push(`/store?category=${encodeURIComponent(category)}`)
+    }
     return (
         <div className='w-full py-6'>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 flex-wrap gap-5 my-10'>
@@ -29,7 +36,11 @@ const Categories = () => {
 
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 px-5 py-8 bg-white rounded-lg shadow-md mb-6">
                 {categories.map((cat) => (
-                    <div key={cat.label} className='flex items-center gap-5 mt-5 cursor-pinter'>
+                    <Link
+                        key={cat.label}
+                        className='flex items-center gap-5 mt-5 cursor-pinter no-underline p-0'
+                        href={`/store?category=${encodeURIComponent(cat.label)}`}
+                    >
                         <div className='flex flex-col flex-grow cursor-pointer'>
                             <h5 className='text-sm text-gray-900 font-semibold leading-6'>{cat.label}</h5>
                             <span className='text-xs md:text-sm text-gray-600'>{cat.stock} items</span>
@@ -43,7 +54,7 @@ const Categories = () => {
                                 className="w-full h-full object-cover"
                             />
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>
