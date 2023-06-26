@@ -5,6 +5,7 @@ import { getProductById } from "./getProductById";
 import { getUserWishlistProducts } from "./getUserWishlistProducts";
 import { fetchAllProducts } from "./fetchAllProducts";
 import { getCategories } from "./getCategories";
+import { getUserOrderedProducts } from "./getUserOrderedProducts";
 
 export {
     getProducts,
@@ -14,4 +15,5 @@ export {
     getUserWishlistProducts,
     getCategories,
     fetchAllProducts,
+    getUserOrderedProducts,
 }

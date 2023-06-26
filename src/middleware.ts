@@ -10,5 +10,6 @@ export const config = {
   matcher: [
     "/profile/:path*",
     "/wishlist/:path*",
+    "/orders/:path*",
   ]
 };

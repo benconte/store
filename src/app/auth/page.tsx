@@ -8,7 +8,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import GoogleIcon from '@mui/icons-material/Google';
 import AuthSocialButton from '@/components/auth/AuthSocialButton';
 import { signIn, useSession } from 'next-auth/react';
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation'
@@ -21,7 +21,7 @@ const Auth = () => {
     const router = useRouter();
     const [variant, setVariant] = useState<Variant>('LOGIN');
     const [isLoading, setIsLoading] = useState(false);
-    
+
     useEffect(() => {
         if (session?.status === 'authenticated') {
             // Redirect to the previous page or a default route
@@ -61,19 +61,55 @@ const Auth = () => {
                 }))
                 .then((callback) => {
                     if (callback?.error) {
-                        toast.error('Invalid credentials!');
+                        toast.error('Invalid credentials!', {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light"
+                        });
                     } else if (callback?.ok) {
-                        toast.success('Account created successfuly!');
+                        toast.success('Account created successfuly!', {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light"
+                        });
 
                         // Redirect to the previous page or a default route
                         const callbackUrl = searchParams.get('callbackUrl') || '/'; // Use callbackUrl from query parameter if available
                         router.push(callbackUrl);
 
                     } else {
-                        toast.error('Invalid credentials!');
+                        toast.error('Invalid credentials!', {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light"
+                        });
                     }
                 })
-                .catch(() => toast.error('Invalid credentials!'))
+                .catch(() => toast.error('Invalid credentials!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light"
+                }))
                 .finally(() => setIsLoading(false))
         }
 
@@ -84,16 +120,44 @@ const Auth = () => {
             })
                 .then((callback) => {
                     if (callback?.error) {
-                        toast.error('Invalid credentials!');
+                        toast.error('Invalid credentials!', {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light"
+                        });
                     } else if (callback?.ok) {
-                        toast.success('Logged in successfuly!');
-                        
+                        toast.success('Logged in successfuly!', {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light"
+                        });
+
                         // Redirect to the previous page or a default route
-                        const callbackUrl = searchParams.get('callbackUrl') || '/'; // Use callbackUrl from query parameter if available
+                        // Use callbackUrl from query parameter if available
+                        const callbackUrl = searchParams.get('callbackUrl') || '/';
                         router.push(callbackUrl);
 
                     } else {
-                        toast.error('Invalid credentials!');
+                        toast.error('Invalid credentials!', {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light"
+                        });
                     }
                 })
                 .finally(() => setIsLoading(false))
@@ -106,12 +170,30 @@ const Auth = () => {
         signIn(action, { redirect: false })
             .then((callback) => {
                 if (callback?.error) {
-                    toast.error("Invalid Credentials")
+                    toast.error("Invalid Credentials", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light"
+                    })
                 }
 
                 if (callback?.ok) {
-                    toast.success("Logged in successfully");
-                    
+                    toast.success("Logged in successfully", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light"
+                    });
+
                     // Redirect to the previous page or a default route
                     const callbackUrl = searchParams.get('callbackUrl') || '/'; // Use callbackUrl from query parameter if available
                     router.push(callbackUrl);

@@ -8,7 +8,7 @@ import { User } from '@prisma/client'
 import Input from '../inputs/Input';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { CldUploadButton } from 'next-cloudinary';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
@@ -52,7 +52,16 @@ const Profile: FC<ProfileProps> = ({ user }) => {
         setIsLoading(true)
 
         if (isChangePassword && data.confirmPassword !== data.newPassword) {
-            toast.error("Invalid Credentials. Password don't match")
+            toast.error("Invalid Credentials. Password don't match", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light"
+              })
             setIsLoading(false)
             return
         }
@@ -73,10 +82,28 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                 }
 
                 if (response.data.passwordChanged) {
-                    toast.success(response.data.message)
+                    toast.success(response.data.message, {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light"
+                      })
                     signOut()
                 } else {
-                    toast.success(response.data.message)
+                    toast.success(response.data.message, {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light"
+                      })
                     setImage(null)
                     router.refresh()
                 }
@@ -160,7 +187,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                                 label='email'
                                 placeholder="myemail@mail.com"
                                 required
-                                disabled={isLoading}
+                                disabled={true}
                                 register={register}
                                 errors={errors}
                             />

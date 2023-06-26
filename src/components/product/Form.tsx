@@ -12,6 +12,7 @@ import { CartState } from '@/@types';
 import { addGuestCart, removeGuestCart } from '@/redux/features/guestCart-slice';
 import { addUserCart, removeUserCart } from '@/redux/features/user-slice';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 type Action = 'INCR' | 'DECR';
 
@@ -65,13 +66,11 @@ const Form = ({ product }: CartState) => {
     if (isAuth) {
       setAddToCartLoading(true)
       axios.post("/api/cart/delete", { userId: user.id, prodId: product?.id })
-        .then((response) => {
+        .then(() => {
           dispatch(removeUserCart(product?.id as string))
-          console.log(response.data)
         })
         .catch((err) => console.log(err))
         .finally(() => setAddToCartLoading(false))
-
     } else {
       setAddToCartLoading(true)
 
@@ -81,7 +80,16 @@ const Form = ({ product }: CartState) => {
   }
 
   const handleProductBuy = () => {
-
+    toast.success('🦄 Wow so easy!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   }
   return (
     <div className='w-full md:max-w-xs border-2 border-gray-100 shadow p-3 rounded-lg'>

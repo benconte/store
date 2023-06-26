@@ -9,7 +9,8 @@ export async function POST(request: Request) {
         const products = await prisma.products.findMany({
             where: {
                 name: {
-                    contains: search as string
+                    contains: search as string,
+                    mode: "insensitive"
                 }
             }
         });

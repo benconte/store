@@ -19,7 +19,7 @@ const FilteredProducts: FC<FilteredProductsProps> = ({ products }) => {
           ))}
         </div>
         : (
-          <div className='w-full h-5/6 py-24 bg-white flex flex-col text-sm text-gray-900 justify-center items-center gap-3'>
+          <div className='w-full h-5/6 py-24 bg-white flex flex-col text-sm md:text-base font-semibold text-gray-900 justify-center items-center gap-3'>
             <Lottie
               loop
               animationData={noproduct}

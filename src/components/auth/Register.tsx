@@ -10,7 +10,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import AuthSocialButton from './AuthSocialButton';
 import axios from 'axios';
 import { signIn, useSession } from 'next-auth/react';
-import { toast } from "react-hot-toast";
+import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 
 interface RegisterProps {
@@ -41,41 +41,79 @@ const Register: FC<RegisterProps> = ({
     setIsLoading(true)
 
     axios.post('/api/register', data)
-    .then(() => signIn('credentials', {
-      ...data,
-      redirect: false
-    }))
-    .then((callback) => {
-      if(callback?.error) {
-        toast.error("Invalid Credentials")
-      }
+      .then(() => signIn('credentials', {
+        ...data,
+        redirect: false
+      }))
+      .then((callback) => {
+        if (callback?.error) {
+          toast.error("Invalid Credentials", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          })
+        }
 
-      if(callback?.ok) {
-        closeAuthModal()
-        router.refresh()
-      }
-    })
-    .catch(() => {
-      toast.error("Something went wrong!")
-    })
-    .finally(() => setIsLoading(false))
+        if (callback?.ok) {
+          closeAuthModal()
+          toast.success("Invalid Credentials", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          })
+          router.refresh()
+        }
+      })
+      .catch(() => {
+        toast.error("Something went wrong!")
+      })
+      .finally(() => setIsLoading(false))
   }
 
   const socialAction = (action: string) => {
     setIsLoading(true)
 
     signIn(action, { redirect: false })
-    .then((callback) => {
-      if(callback?.error) {
-        toast.error("Invalid Credentials")
-      }
+      .then((callback) => {
+        if (callback?.error) {
+          toast("Invalid Credentials", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          })
+        }
 
-      if(callback?.ok) {
-        closeAuthModal()
-        router.refresh()
-      }
-    })
-    .finally(() => setIsLoading(false))
+        if (callback?.ok) {
+          toast.success("Invalid Credentials", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          })
+          closeAuthModal()
+          router.refresh()
+        }
+      })
+      .finally(() => setIsLoading(false))
   }
   return (
     <div className="w-full py-4 px-2 sm:px-6">

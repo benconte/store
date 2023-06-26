@@ -8,7 +8,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import GoogleIcon from '@mui/icons-material/Google';
 import AuthSocialButton from './AuthSocialButton';
 import { signIn, useSession } from 'next-auth/react';
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify"
 import { useRouter } from 'next/navigation';
 
 interface LoginProps {
@@ -43,11 +43,29 @@ const Login: FC<LoginProps> = ({
     })
       .then((callback) => {
         if (callback?.error) {
-          toast.error("Invalid Credentials")
+          toast.error("Invalid Credentials", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          })
         }
 
         if (callback?.ok) {
-          toast.success("Logged in successfully");
+          toast.success("Logged in successfully", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          });
           closeAuthModal()
           router.refresh()
         }
@@ -61,11 +79,29 @@ const Login: FC<LoginProps> = ({
     signIn(action, { redirect: false })
       .then((callback) => {
         if (callback?.error) {
-          toast.error("Invalid Credentials")
+          toast.error("Invalid Credentials", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          })
         }
 
         if (callback?.ok) {
-          toast.success("Logged in successfully");
+          toast.success("Logged in successfully", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          });
           closeAuthModal()
           router.refresh()
         }
