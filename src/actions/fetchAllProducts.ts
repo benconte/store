@@ -2,7 +2,7 @@ import prisma from "@/libs/prismadb"
 
 export async function fetchAllProducts(category: string) {
     try {
-        if (category.length > 0) {
+        if (category && category.length > 0) {
             const products = await prisma.products.findMany({
                 where: {
                     category: {

@@ -13,9 +13,9 @@ interface props {
 }
 
 const page = async ({ searchParams }: props) => {
-    const category = decodeURIComponent(searchParams.category);
+    const category: string | undefined = decodeURIComponent(searchParams.category);
     const categories = await getCategories()
-    const products = await fetchAllProducts(category ? category : "");
+    const products = await fetchAllProducts(searchParams.category ? category : "");
     return (
         <div className='w-full h-full px-2 md:px-7 lg:px-12 py-5 md:py-8'>
             <Categories categories={categories} />
