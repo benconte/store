@@ -16,7 +16,7 @@ const BottomNav = ({ }) => {
           <li className="text-sm text-gray-300 uppercase hover:text-white cursor-pointer">Home</li>
         </Link>
         <Link href="/store" className="no-underline p-0 cursor-pointer">
-          <li className="text-sm text-gray-300 uppercase hover:text-white cursor-pointer">OurStore</li>
+          <li className="text-sm text-gray-300 uppercase hover:text-white cursor-pointer">Store</li>
         </Link>
         <Link href="/blogs" className="no-underline p-0 cursor-pointer">
           <li className="text-sm text-gray-300 uppercase hover:text-white cursor-pointer">Blogs</li>

@@ -2,9 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
-
-import mapboxgl from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
-// const mapboxgl = require('!mapbox-gl');
+import mapboxgl from 'mapbox-gl'; 
 
 function Map() {
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_GL_ACCESS_TOKEN ?? '';
@@ -42,7 +40,6 @@ function Map() {
         </div>
     )
 }
-// coordinates
 export default Map
 
 // npm i google-map-react
