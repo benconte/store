@@ -2,7 +2,7 @@
 
 import { FC } from 'react'
 import Product from './Product'
-import Lottie from 'react-lottie-player'
+import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import noproduct from "@/assets/no-product.json";
 
 interface FilteredProductsProps {
@@ -20,12 +20,14 @@ const FilteredProducts: FC<FilteredProductsProps> = ({ products }) => {
         </div>
         : (
           <div className='w-full h-5/6 py-24 bg-white flex flex-col text-sm md:text-base font-semibold text-gray-900 justify-center items-center gap-3'>
-            <Lottie
+            <Player
+              autoplay
               loop
-              animationData={noproduct}
-              play
-              style={{ width: 200, height: 200 }}
-            />
+              src={noproduct}
+              style={{ height: '200px', width: '200px' }}
+            >
+              <Controls visible={false} />
+            </Player>
             This Category has no products
           </div>
         )}

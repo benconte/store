@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 
-import Lottie from 'react-lottie-player'
+import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import loading from "@/assets/loading.json";
 
 interface HandleAuthProps {
@@ -48,12 +48,14 @@ function HandleAuth({ children }: HandleAuthProps) {
         return (
             <div className="w-full h-screen flex justify-center">
                 <div className="flex flex-col items-center">
-                    <Lottie
+                    <Player
+                        autoplay
                         loop
-                        animationData={loading}
-                        play
-                        style={{ width: 300, height: 300, marginTop: 100 }}
-                    />
+                        src={loading}
+                        style={{ height: '300px', width: '300px', marginTop: 100 }}
+                    >
+                        <Controls visible={false} />
+                    </Player>
                     <h3 className='text-lg font-semibold text-gray-900 mt-4 text-center'>Loading...</h3>
                 </div>
             </div>

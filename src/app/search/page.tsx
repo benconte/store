@@ -1,7 +1,5 @@
 import { getProductById } from '@/actions';
 import React from 'react'
-import Lottie from 'react-lottie-player'
-import noproduct from "@/assets/no-product.json";
 import ProductNotFound from '@/components/search/ProductNotFound';
 import SearchProduct from '@/components/search/SearchProduct';
 

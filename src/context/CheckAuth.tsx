@@ -1,17 +1,15 @@
 'use client'
 
-import { User } from '@prisma/client'
 import { FC, useState } from 'react'
 import { userAuthenticated, userNotAuthenticated } from "@/redux/features/authSlice"
 import { addUser } from "@/redux/features/user-slice"
 import { AppDispatch } from "@/redux/store"
-import axios from "axios"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { addGuest } from "@/redux/features/guestCart-slice"
 import { CartState, UserState } from "@/@types"
 
-import Lottie from 'react-lottie-player'
+import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import loading from "@/assets/loading.json";
 
 
@@ -43,12 +41,14 @@ const CheckAuth: FC<CheckAuthProps> = ({ children, initialUser, initialGuest, in
         return (
             <div className="w-full h-screen flex justify-center">
                 <div className="flex flex-col items-center">
-                    <Lottie
+                    <Player
+                        autoplay
                         loop
-                        animationData={loading}
-                        play
-                        style={{ width: 300, height: 300, marginTop: 100 }}
-                    />
+                        src={loading}
+                        style={{ height: '200px', width: '200px' }}
+                    >
+                        <Controls visible={false} />
+                    </Player>
                     <h3 className='text-lg font-semibold text-gray-900 mt-4 text-center'>Loading...</h3>
                 </div>
             </div>

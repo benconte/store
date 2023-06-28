@@ -3,7 +3,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import CloseIcon from '@mui/icons-material/Close';
-import Lottie from 'react-lottie-player'
+import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import orderSuccess from "@/assets/add-to-cart.json";
 
 interface OrderSuccessProps {
@@ -52,12 +52,14 @@ function OrderSuccess({ isOpen, closeOrderSuccessModal }: OrderSuccessProps) {
                                 </div>
 
                                 <div className="w-full overflow-hidden rounded-lg flex flex-col justify-center items-center py-5">
-                                    <Lottie
+                                    <Player
+                                        autoplay
                                         loop
-                                        animationData={orderSuccess}
-                                        play
-                                        style={{ width: 200, height: 200 }}
-                                    />
+                                        src={orderSuccess}
+                                        style={{ height: '200px', width: '200px' }}
+                                    >
+                                        <Controls visible={false} />
+                                    </Player>
 
                                     <span className='text-gray-900 leading-5 mt-4 text-center max-w-sm'>
                                         Order Placed successfully. You can track your order from the orders page
