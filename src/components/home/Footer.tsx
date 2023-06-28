@@ -7,8 +7,27 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import Link from 'next/link';
 import EmailIcon from '@mui/icons-material/Email';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const Footer = () => {
+    const [email, setEmail] = useState("");
+
+    const sendEmail = () => {
+        setTimeout(() => {
+            setEmail("");
+            toast.success("Subscription successful. You will receive emails", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light"
+            });
+        }, 3000)
+    }
     return (
         <div className='z-0 w-full bg-darkBlue py-10 px-3 md:px-20'>
             <div className="w-full h-auto flex flex-col md:flex-row md:items-center justify-around pb-5 border-b border-gray-600 gap-4">
@@ -20,9 +39,11 @@ const Footer = () => {
                     <input
                         type="email"
                         placeholder='your email'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="w-full md:max-w-xl outline-none border-none px-2 sm:px-2 text-gray-900 text-xs sm:text-sm font-semibold"
                     />
-                    <button type="button" className="text-sm bg-darkBlue px-1 py-1 sm:py-2 text-white uppercase rounded-lg ">
+                    <button type="button" className="text-sm bg-darkBlue px-1 py-1 sm:py-2 text-white uppercase rounded-lg" onClick={sendEmail}>
                         Subscribe
                     </button>
                 </div>
@@ -85,7 +106,7 @@ const Footer = () => {
                             <li className='text-xs sm:text-sm '>Terms of Service</li>
                         </Link>
                         <Link href="#" className='hover:underline'>
-                            <li className='text-xs sm:text-sm '>Blogs</li>
+                            <li className='text-xs sm:text-sm '>faq</li>
                         </Link>
                     </ul>
                 </div>
@@ -95,20 +116,20 @@ const Footer = () => {
                         Account
                     </h3>
                     <ul className='flex flex-col gap-3 justify-center text-white'>
-                        <Link href="#" className='hover:underline'>
-                            <li className='text-xs sm:text-sm '>Search</li>
+                        <Link href="/" className='hover:underline'>
+                            <li className='text-xs sm:text-sm '>Home</li>
                         </Link>
-                        <Link href="#" className='hover:underline'>
-                            <li className='text-xs sm:text-sm '>About Us</li>
+                        <Link href="/profile" className='hover:underline'>
+                            <li className='text-xs sm:text-sm '>Profile</li>
                         </Link>
-                        <Link href="#" className='hover:underline'>
-                            <li className='text-xs sm:text-sm '>faq</li>
+                        <Link href="/store" className='hover:underline'>
+                            <li className='text-xs sm:text-sm '>Store</li>
                         </Link>
-                        <Link href="#" className='hover:underline'>
+                        <Link href="/blogs" className='hover:underline'>
+                            <li className='text-xs sm:text-sm '>Blogs</li>
+                        </Link>
+                        <Link href="/contact" className='hover:underline'>
                             <li className='text-xs sm:text-sm '>Contact</li>
-                        </Link>
-                        <Link href="#" className='hover:underline'>
-                            <li className='text-xs sm:text-sm '>Charts</li>
                         </Link>
                     </ul>
                 </div>
@@ -118,20 +139,20 @@ const Footer = () => {
                         Quick Links
                     </h3>
                     <ul className='flex flex-col gap-3 justify-center text-white'>
-                        <Link href="#" className='hover:underline'>
-                            <li className='text-xs sm:text-sm '>Accessories</li>
+                        <Link href={`/store?category=${encodeURIComponent('Computer & Laptop')}`} className='hover:underline'>
+                            <li className='text-xs sm:text-sm '>Computer & Laptop</li>
                         </Link>
-                        <Link href="#" className='hover:underline'>
-                            <li className='text-xs sm:text-sm '>Laptops</li>
+                        <Link href={`/store?category=${encodeURIComponent('Cameras & Videos')}`} className='hover:underline'>
+                            <li className='text-xs sm:text-sm '>Cameras & Videos</li>
                         </Link>
-                        <Link href="#" className='hover:underline'>
-                            <li className='text-xs sm:text-sm '>Headphones</li>
-                        </Link>
-                        <Link href="#" className='hover:underline'>
+                        <Link href={`/store?category=${encodeURIComponent('Smart Watches')}`} className='hover:underline'>
                             <li className='text-xs sm:text-sm '>Smart Watches</li>
                         </Link>
-                        <Link href="#" className='hover:underline'>
-                            <li className='text-xs sm:text-sm '>Tablets</li>
+                        <Link href={`/store?category=${encodeURIComponent("Men's Clothing")}`} className='hover:underline'>
+                            <li className='text-xs sm:text-sm '>Men{`'`}s Clothing</li>
+                        </Link>
+                        <Link href={`/store?category=${encodeURIComponent("Women's Clothing")}`} className='hover:underline'>
+                            <li className='text-xs sm:text-sm '>Women{`'`}s Clothing</li>
                         </Link>
                     </ul>
                 </div>
