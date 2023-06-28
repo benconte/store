@@ -3,10 +3,12 @@ import Banner from './Banner'
 import NavOptions from './NavOptions'
 import MobileNav from './MobileNav'
 import BottomNav from './BottomNav'
+import { getCategories } from '@/actions'
 
-const Navbar = (
+const Navbar = async (
   { children }: { children: React.ReactNode }
 ) => {
+  const categories = await getCategories();
   return (
     <div className='w-full min-h-full overflow-hidden'>
       <div className='w-full flex flex-col'>
@@ -16,7 +18,7 @@ const Navbar = (
           <NavOptions />
         </div>
         <div className='px-3 md:px-12 w-full h-auto bg-darkBlue '>
-          <BottomNav />
+          <BottomNav categories={categories} />
         </div>
       </div>
       {children}

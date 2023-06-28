@@ -2,11 +2,26 @@
 
 import ViewCompactIcon from '@mui/icons-material/ViewCompact';
 import Link from 'next/link';
+import Modal from "@/components/modals/Modal";
+import { Categories } from '@prisma/client';
+import { FC, useState } from 'react';
 
-const BottomNav = ({ }) => {
+interface BottomNavProps {
+  categories: Categories[]
+}
+
+const BottomNav: FC<BottomNavProps> = ({ categories }) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const openModal = () => {
+    setIsOpen(true)
+  }
+
   return (
     <div className="w-full flex items-center gap-5">
-      <div className="flex items-center gap-3 cursor-pointer">
+      <Modal categories={categories} isOpen={isOpen} onClose={() => setIsOpen(false)} />
+
+      <div className="flex items-center gap-3 cursor-pointer" onClick={openModal}>
         <ViewCompactIcon className="w-8 h-10 text-white" />
         <span className="text-sm text-white font-semibold hidden md:block">Shop by categories</span>
       </div>
