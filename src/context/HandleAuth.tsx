@@ -21,14 +21,11 @@ function HandleAuth({ children }: HandleAuthProps) {
     const dispatch = useDispatch<AppDispatch>()
     const session = useSession()
     const [isLoading, setIsLoading] = useState(false)
-    const [guestCart, setGuestCart] = useState<CartState[]>([])
 
     useEffect(() => {
         if (session?.status !== "authenticated") {
             dispatch(userNotAuthenticated())
-
-            setGuestCart(JSON.parse(localStorage.getItem('guestCart') || '[]'));
-            dispatch(addGuest(guestCart))
+            dispatch(addGuest(JSON.parse(localStorage.getItem('guestCart') || '[]')))
 
             setIsLoading(false)
         } else {
@@ -42,7 +39,6 @@ function HandleAuth({ children }: HandleAuthProps) {
                 .catch((error) => console.log(error))
         }
     }, [session, dispatch])
-
 
     if (isLoading) {
         return (

@@ -3,21 +3,17 @@ import React from 'react'
 import ProductNotFound from '@/components/search/ProductNotFound';
 import SearchProduct from '@/components/search/SearchProduct';
 
-interface SearchProduct {
-    productId: string;
+interface IParams {
+    productId: string
 }
 
-interface Props {
-    params: SearchProduct
-}
-
-const page = async ({ params }: Props) => {
+const page = async ({ params }: { params: IParams }) => {
     const product = await getProductById(params.productId);
     return (
         <div>
             {product ? (
                 <SearchProduct product={product} />
-            ): (
+            ) : (
                 <ProductNotFound />
             )}
         </div>
