@@ -1,9 +1,9 @@
-import { FC } from 'react'
 import Banner from './Banner'
 import NavOptions from './NavOptions'
 import MobileNav from './MobileNav'
 import BottomNav from './BottomNav'
 import { getCategories } from '@/actions'
+import { useAppSelector } from '@/redux/store'
 
 const Navbar = async (
   { children }: { children: React.ReactNode }

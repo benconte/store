@@ -21,8 +21,8 @@ const BottomNav: FC<BottomNavProps> = ({ categories }) => {
     <div className="w-full flex items-center gap-5">
       <Modal categories={categories} isOpen={isOpen} onClose={() => setIsOpen(false)} />
 
-      <div className="flex items-center gap-3 cursor-pointer" onClick={openModal}>
-        <ViewCompactIcon className="w-8 h-10 text-white" />
+      <div className="flex items-center gap-1 cursor-pointer" onClick={openModal}>
+        <ViewCompactIcon className="w-6 h-6 text-white" />
         <span className="text-sm text-white font-semibold hidden md:block">Shop by categories</span>
       </div>
       <div className="w-[1px] h-5 bg-gray-600 hidden md:inline-block" />

@@ -1,7 +1,5 @@
 'use client'
 
-import SearchIcon from '@mui/icons-material/Search';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { AppDispatch, useAppSelector } from '@/redux/store';
@@ -14,16 +12,10 @@ import { useState } from 'react';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import ClickAwayListener from '@mui/base/ClickAwayListener';
-import { Products } from '@prisma/client';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import axios from 'axios';
 import MobileInput from './MobileInput';
 
 const MobileNav = () => {
     const [isDropdown, setIsDropwdown] = useState(false)
-    const [search, setSearch] = useState<Products[]>([])
-    const [isSearch, setIsSearch] = useState(false)
-    const [isSearchResults, setIsSearchResult] = useState(false)
 
     const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated)
     const cartLength = useAppSelector((state) => isAuth ?
@@ -41,32 +33,6 @@ const MobileNav = () => {
 
     const handleDropdownClickAway = () => {
         setIsDropwdown(false)
-    }
-    const {
-        register,
-        handleSubmit,
-    } = useForm<FieldValues>({
-        defaultValues: {
-            search: ''
-        }
-    })
-
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        setIsSearch(true)
-        axios.post("/api/search", { search: data.search })
-            .then((response) => {
-                if (response.status !== 200) {
-                    throw new Error("Something went wrong. Try again later")
-                }
-                setIsSearchResult(true);
-                setSearch(response.data)
-            })
-            .catch(err => console.log(err))
-            .finally(() => setIsSearch(false))
-    }
-
-    const handleInputClickAway = () => {
-        setIsSearchResult(false)
     }
     return (
         <div className='w-full flex flex-col lg:hidden border-t border-solid border-gray-700 py-2'>

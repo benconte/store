@@ -4,16 +4,11 @@ import { useCategories } from '@/hooks/useCategories'
 import { useCategoryServices } from '@/hooks/useCategoryServices'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const Categories = () => {
     const services = useCategoryServices()
     const categories = useCategories()
-    const router = useRouter()
-    const handleFilter = (category: string) => {
-        router.push(`/store?category=${encodeURIComponent(category)}`)
-    }
     return (
         <div className='w-full py-6'>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 flex-wrap gap-5 my-10'>
