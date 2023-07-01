@@ -17,7 +17,7 @@ const Navbar = async (
           <MobileNav />
           <NavOptions />
         </div>
-        <div className='px-3 md:px-12 w-full h-auto bg-darkBlue '>
+        <div className='px-3 md:px-12 w-full h-auto bg-darkBlue py-2'>
           <BottomNav categories={categories} />
         </div>
       </div>
