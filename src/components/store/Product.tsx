@@ -1,7 +1,7 @@
 'use client'
 
 import { Product } from '@/@types'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Image from 'next/image';
@@ -20,11 +20,19 @@ interface ProductProps {
 
 const Product: FC<ProductProps> = ({ product }) => {
     const [wishlistLoading, setWishlistLoading] = useState(false)
-    const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated)
-    const isProductInWishlist = useAppSelector((state) =>
-        isAuth ? state.user.value.wishlist.some((prod) => prod.id === product.id) : false
-    )
-    const userId = useAppSelector((state) => state.user.value.id);
+    const [isProductInWishlist, setIsProductInWishlist] = useState(false)
+
+    // getting the initial states
+    const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
+    const user = useAppSelector((state) => state.user.value);
+
+    useEffect(() => {
+        if (isAuth) {
+            setIsProductInWishlist(user.wishlist.some((prod) => prod.id === product.id))
+        } else {
+            setIsProductInWishlist(false)
+        }
+    }, [isAuth, user, product])
 
     const dispatch = useDispatch<AppDispatch>()
     const router = useRouter()
@@ -32,7 +40,7 @@ const Product: FC<ProductProps> = ({ product }) => {
     const handleWishlist = async () => {
         if (isAuth) {
             setWishlistLoading(true);
-            const response = await axios.post("/api/user/wishlist", { userId, prodId: product.id })
+            const response = await axios.post("/api/user/wishlist", { userId: user.id, prodId: product.id })
             if (response.status !== 200) {
                 throw new Error("Unexpected response status")
             }
@@ -70,7 +78,7 @@ const Product: FC<ProductProps> = ({ product }) => {
                 <div className='flex-1 flex flex-col gap-3'>
                     <p className='text-sm text-[#F9B96E] font-semibold'>Brand: {product?.brand.name}</p>
                     <h3 className="text-sm text-gray-900 line-clamp-2">{product?.name}</h3>
-                    
+
                     <p className="text-sm text-gray-900">${product?.price}</p>
                 </div>
             </Link>
