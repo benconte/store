@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
@@ -23,10 +23,16 @@ const Form = ({ product }: CartState) => {
 
   const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
   const user = useAppSelector((state) => state.user.value);
-  const isProductInCart = useAppSelector((state) => isAuth ?
-    state.user.value.cart.some((prod) => prod.product?.id === product?.id) :
-    state.guest.value.some((prod) => prod.product?.id === product?.id)
-  );
+  const guest = useAppSelector((state) => state.guest.value)
+  const [isProductInCart, setIsProductInCart] = useState(false)
+
+  useEffect(() => {
+    if (isAuth) {
+      setIsProductInCart(user.cart.some((prod) => prod.product.id === product.id))
+    } else {
+      setIsProductInCart(guest.some((prod) => prod.product.id === product.id))
+    }
+  }, [isAuth, user, guest, product])
 
   const changeAmount = (action: Action) => {
     if (currentAmount === 0 && action !== "INCR") return;

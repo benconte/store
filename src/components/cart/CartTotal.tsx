@@ -2,8 +2,8 @@
 
 import { CartState } from '@/@types';
 import { openModal } from '@/redux/features/authModal';
-import { clearCart } from '@/redux/features/user-slice';
-import { AppDispatch, useAppSelector } from '@/redux/store';
+import { userClearCart } from '@/redux/features/user-slice';
+import { AppDispatch } from '@/redux/store';
 import axios from 'axios';
 import clsx from 'clsx';
 import { FC, useState } from 'react'
@@ -38,7 +38,7 @@ const CartTotal: FC<CartTotalProps> = ({ length, total, cart, isAuth, openOrderS
       return new Error("Something went wrong.")
     }
 
-    dispatch(clearCart())
+    dispatch(userClearCart())
     setPlaceOrderLoading(false)
     openOrderSuccessModal()
   }

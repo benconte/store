@@ -55,7 +55,7 @@ export const userCart = createSlice({
         updateUserWishlist: (state, action: PayloadAction<Product[]>) => {
             state.value.wishlist = action.payload
         },
-        clearCart: (state) => {
+        userClearCart: (state) => {
             state.value.cart = []
         },
     }
@@ -67,7 +67,7 @@ export const {
     removeUserCart, 
     updateUserCart, 
     updateUserWishlist, 
-    clearCart 
+    userClearCart 
 } = userCart.actions;
 export default userCart.reducer;
 

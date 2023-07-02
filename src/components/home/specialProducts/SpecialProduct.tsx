@@ -5,7 +5,7 @@ import { addGuestCart, removeGuestCart } from '@/redux/features/guestCart-slice'
 import { addUserCart, removeUserCart, updateUserWishlist } from '@/redux/features/user-slice';
 import { AppDispatch, useAppSelector } from '@/redux/store';
 import axios from 'axios';
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { handleStars } from '@/utils/handleStars'
 import Image from 'next/image'
@@ -25,19 +25,24 @@ const SpecialProduct: FC<SpecialProductProps> = ({ product }) => {
 
     const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
     const user = useAppSelector((state) => state.user.value);
-    const isProductInCart = useAppSelector((state) => isAuth ?
-        state.user.value.cart.some((prod) => prod.product?.id === product.id) :
-        state.guest.value.some((prod) => prod.product?.id === product.id)
-    );
-    const isProductInWishlist = useAppSelector((state) =>
-        isAuth ? state.user.value.wishlist.some((prod) => prod.id === product.id) : false
-    )
-    const userId = useAppSelector((state) => state.user.value.id);
+    const guest = useAppSelector((state) => state.guest.value)
+    const [isProductInCart, setIsProductInCart] = useState(false)
+    const [isProductInWishlist, setIsProductInWishlist] = useState(false)
+
+    useEffect(() => {
+        if(isAuth) {
+            setIsProductInCart(user.cart.some((prod) => prod.product.id === product.id))
+            setIsProductInWishlist(user.wishlist.some((prod) => prod.id === product.id))
+        } else {
+            setIsProductInCart(guest.some((prod) => prod.product.id === product.id))
+            setIsProductInWishlist(false)
+        }
+    }, [isAuth, user, guest, product])
 
     const handleWishlist = async () => {
         if (isAuth) {
             setWishlistLoading(true);
-            const response = await axios.post("/api/user/wishlist", { userId, prodId: product.id })
+            const response = await axios.post("/api/user/wishlist", { userId: user.id, prodId: product.id })
             if (response.status !== 200) {
                 throw new Error("Unexpected response status")
             }

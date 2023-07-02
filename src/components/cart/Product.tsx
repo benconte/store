@@ -3,7 +3,7 @@
 import { CartState } from '@/@types'
 import { calculateFinalPrice } from '@/utils/discountCalculator'
 import Image from 'next/image'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -25,14 +25,22 @@ const Product: FC<ProductProps> = ({ product: item }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isDropdown, setIsDropdown] = useState(false);
   const [isProductDelete, setIsProductDelete] = useState(false);
+  const [isProductInWishlist, setIsProductInWishlist] = useState(false)
   const [wishlistLoading, setWishlistLoading] = useState(false)
 
   const dispatch = useDispatch<AppDispatch>();
+  
+  // getting the initial states
   const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
-  const userId = useAppSelector((state) => state.user.value.id);
-  const isProductInWishlist = useAppSelector((state) =>
-    isAuth ? state.user.value.wishlist.some((prod) => prod.id === item.product.id) : false
-  )
+  const user = useAppSelector((state) => state.user.value);
+
+  useEffect(() => {
+    if (isAuth) {
+      setIsProductInWishlist(user.wishlist.some((prod) => prod.id === item.product.id))
+    } else {
+      setIsProductInWishlist(false)
+    }
+  }, [isAuth, user, item])
 
   const changeQuantity = async (action: Action) => {
     if (item.productOrdered === 1 && action !== "INCR") return;
@@ -47,7 +55,7 @@ const Product: FC<ProductProps> = ({ product: item }) => {
         }
 
         const response = await axios.post("/api/cart/update",
-          { payload, userId }
+          { payload, userId: user.id }
         )
         if (response.status !== 200) {
           setIsLoading(false);
@@ -76,7 +84,7 @@ const Product: FC<ProductProps> = ({ product: item }) => {
         }
 
         const response = await axios.post("/api/cart/update",
-          { payload, userId }
+          { payload, userId: user.id }
         )
         if (response.status !== 200) {
           setIsLoading(false);
@@ -100,7 +108,7 @@ const Product: FC<ProductProps> = ({ product: item }) => {
   const removeFromCart = async () => {
     const payload = {
       prodId: item.product.id,
-      userId,
+      userId: user.id,
     }
 
     if (isAuth) {
@@ -124,7 +132,7 @@ const Product: FC<ProductProps> = ({ product: item }) => {
   const handleWishlist = async () => {
     if (isAuth) {
       setWishlistLoading(true);
-      const response = await axios.post("/api/user/wishlist", { userId, prodId: item.product.id })
+      const response = await axios.post("/api/user/wishlist", { userId: user.id, prodId: item.product.id })
       if (response.status !== 200) {
         throw new Error("Unexpected response status")
       }

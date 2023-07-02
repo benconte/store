@@ -10,7 +10,7 @@ import { openModal } from '@/redux/features/authModal';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HelpIcon from '@mui/icons-material/Help';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import ClickAwayListener from '@mui/base/ClickAwayListener';
@@ -19,9 +19,18 @@ const Options = () => {
     const [isDropdown, setIsDropwdown] = useState(false)
 
     const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated)
-    const cartLength = useAppSelector((state) => isAuth ?
-        state.user.value.cart.length : state.guest.value.length
-    )
+    const user = useAppSelector((state) => state.user.value)
+    const guest = useAppSelector((state) => state.guest.value)
+    const [cartLength, setCartLength] = useState(0)
+
+    useEffect(() => {
+        if(isAuth) {
+            setCartLength(user.cart.length)
+        } else {
+            setCartLength(guest.length)
+        }
+    }, [isAuth, user, guest])
+
     const dispatch = useDispatch<AppDispatch>()
 
     const openAuthModal = () => {

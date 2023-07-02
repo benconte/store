@@ -63,14 +63,14 @@ export const guestCart = createSlice({
 
             state.value = updatedGuestCart
         },
-        clearCart: (state) => {
+        guestClearCart: (state) => {
             localStorage.setItem('guestCart', JSON.stringify([]));
             state.value = [];
         },
     }
 });
 
-export const { addGuestCart, removeGuestCart, updateGuestCart, addGuest, clearCart } = guestCart.actions;
+export const { addGuestCart, removeGuestCart, updateGuestCart, addGuest, guestClearCart } = guestCart.actions;
 export default guestCart.reducer;
 
 

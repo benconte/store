@@ -1,55 +1,59 @@
 'use client'
 
+import { CartState } from "@/@types"
 import CartTotal from "@/components/cart/CartTotal"
 import OrderSuccess from "@/components/cart/OrderSuccessful"
 import Product from "@/components/cart/Product"
-import { clearCart } from "@/redux/features/guestCart-slice"
+import { guestClearCart } from "@/redux/features/guestCart-slice"
+import { userClearCart } from "@/redux/features/user-slice"
 import { AppDispatch, useAppSelector } from "@/redux/store"
 import { calculateFinalPrice } from "@/utils/discountCalculator"
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 
 function Cart() {
     const [clearCartLoading, setClearCartLoading] = useState(false)
     const [isOrderSuccessModal, setIsOrderSuccessModal] = useState(false)
 
-    const cart = useAppSelector((state) => (
-        state.authReducer.isAuthenticated ? state.user.value.cart : state.guest.value
-    ))
-
+    // getting initial states
     const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
+    const user = useAppSelector((state) => state.user.value);
+    const guest = useAppSelector((state) => state.guest.value)
+    const [cart, setCart] = useState<CartState[]>([]);
+    const [totalCartPrice, setTotalCartPrice] = useState(0)
+    const dispatch = useDispatch<AppDispatch>()
 
-    const totalCartPrice = useAppSelector((state) => {
-        if (state.authReducer.isAuthenticated) {
+    useEffect(() => {
+        if (isAuth) {
+            setCart(user.cart);
+            
             let total = 0;
-            state.user.value.cart.map((item) => {
+            user.cart.map((item) => {
                 if (item.product.discount) {
                     total = total + (calculateFinalPrice(item.product.price, item.product.discount) * item.productOrdered)
                 } else {
                     total = total + (item.product.price * item.productOrdered)
                 }
             });
-
-            return total;
+            setTotalCartPrice(total)
         } else {
+            setCart(guest);
             let total = 0;
-            state.guest.value.map((item) => {
+            guest.map((item) => {
                 if (item.product.discount) {
                     total = total + (calculateFinalPrice(item.product.price, item.product.discount) * item.productOrdered)
                 } else {
                     total = total + (item.product.price * item.productOrdered)
                 }
-            })
-            return total;
+            });
+            setTotalCartPrice(total)
         }
-    });
-
-    const dispatch = useDispatch<AppDispatch>()
+    }, [isAuth, user, guest])
 
     const clearCartState = async () => {
         if (!isAuth) {
-            dispatch(clearCart());
+            dispatch(guestClearCart());
             return;
         }
 
@@ -59,7 +63,7 @@ function Cart() {
             throw new Error("Something went wrong.")
         }
 
-        dispatch(clearCart())
+        dispatch(userClearCart())
         setClearCartLoading(false)
     }
 

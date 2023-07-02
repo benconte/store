@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import DiscountIcon from '@mui/icons-material/Discount';
 import { calculateFinalPrice } from '@/utils/discountCalculator';
 import Image from "next/image"
@@ -50,18 +50,26 @@ const Details: FC<DetailsProps> = ({ product }) => {
     }
   }
 
+  const [isProductInWishlist, setIsProductInWishlist] = useState(false)
   const [wishlistLoading, setWishlistLoading] = useState(false)
   const dispatch = useDispatch<AppDispatch>();
-  const userId = useAppSelector((state) => state.user.value.id);
+
+  // getting the initial states
   const isAuth = useAppSelector((state) => state.authReducer.isAuthenticated);
-  const isProductInWishlist = useAppSelector((state) =>
-    isAuth ? state.user.value.wishlist.some((prod) => prod.id === product.id) : false
-  )
+  const user = useAppSelector((state) => state.user.value);
+
+  useEffect(() => {
+    if (isAuth) {
+      setIsProductInWishlist(user.wishlist.some((prod) => prod.id === product.id))
+    } else {
+      setIsProductInWishlist(false)
+    }
+  }, [isAuth, user, product])
 
   const handleWishlist = async () => {
     if (isAuth) {
       setWishlistLoading(true);
-      const response = await axios.post("/api/user/wishlist", { userId, prodId: product.id })
+      const response = await axios.post("/api/user/wishlist", { userId: user.id, prodId: product.id })
       if (response.status !== 200) {
         throw new Error("Unexpected response status")
       }
