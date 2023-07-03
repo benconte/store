@@ -89,9 +89,7 @@ const Login: FC<LoginProps> = ({
             progress: undefined,
             theme: "light"
           })
-        }
-
-        if (callback?.ok) {
+        } else if (callback?.ok) {
           toast.success("Logged in successfully", {
             position: "top-right",
             autoClose: 3000,
@@ -104,6 +102,18 @@ const Login: FC<LoginProps> = ({
           });
           closeAuthModal()
           router.refresh()
+          
+        } else {
+          toast.error('Invalid credentials!', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          });
         }
       })
       .finally(() => setIsLoading(false))

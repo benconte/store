@@ -72,7 +72,7 @@ const Auth = () => {
                             theme: "light"
                         });
                     } else if (callback?.ok) {
-                        toast.success('Account created successfuly!', {
+                        toast.success('Account created successfully!', {
                             position: "top-right",
                             autoClose: 3000,
                             hideProgressBar: false,

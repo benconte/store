@@ -57,11 +57,9 @@ const Register: FC<RegisterProps> = ({
             progress: undefined,
             theme: "light"
           })
-        }
-
-        if (callback?.ok) {
+        } else if (callback?.ok) {
           closeAuthModal()
-          toast.success("Invalid Credentials", {
+          toast.success("Account created successfully", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -72,6 +70,18 @@ const Register: FC<RegisterProps> = ({
             theme: "light"
           })
           router.refresh()
+          
+        } else {
+          toast.error('Invalid credentials!', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          });
         }
       })
       .catch(() => {
@@ -96,10 +106,8 @@ const Register: FC<RegisterProps> = ({
             progress: undefined,
             theme: "light"
           })
-        }
-
-        if (callback?.ok) {
-          toast.success("Invalid Credentials", {
+        } else if (callback?.ok) {
+          toast.success("Account created successfully", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -111,6 +119,18 @@ const Register: FC<RegisterProps> = ({
           })
           closeAuthModal()
           router.refresh()
+
+        } else {
+          toast.error('Invalid credentials!', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          });
         }
       })
       .finally(() => setIsLoading(false))
