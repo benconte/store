@@ -53,9 +53,7 @@ const Login: FC<LoginProps> = ({
             progress: undefined,
             theme: "light"
           })
-        }
-
-        if (callback?.ok) {
+        } else if (!callback?.error && callback?.ok) {
           toast.success("Logged in successfully", {
             position: "top-right",
             autoClose: 3000,
@@ -68,6 +66,17 @@ const Login: FC<LoginProps> = ({
           });
           closeAuthModal()
           router.refresh()
+        } else {
+          toast.error("Invalid Credentials", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          })
         }
       })
       .finally(() => setIsLoading(false))
@@ -89,7 +98,7 @@ const Login: FC<LoginProps> = ({
             progress: undefined,
             theme: "light"
           })
-        } else if (callback?.ok) {
+        } else if (!callback?.error && callback?.ok) {
           toast.success("Logged in successfully", {
             position: "top-right",
             autoClose: 3000,
@@ -102,9 +111,8 @@ const Login: FC<LoginProps> = ({
           });
           closeAuthModal()
           router.refresh()
-          
         } else {
-          toast.error('Invalid credentials!', {
+          toast.error("Invalid Credentials", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -113,7 +121,7 @@ const Login: FC<LoginProps> = ({
             draggable: true,
             progress: undefined,
             theme: "light"
-          });
+          })
         }
       })
       .finally(() => setIsLoading(false))

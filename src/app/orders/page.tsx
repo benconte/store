@@ -13,7 +13,7 @@ const page = async () => {
           ))}
         </div>
         : (
-          <ProductsNotFound />
+          <ProductsNotFound message="You haven't placed any orders" />
         )
       }
     </div>

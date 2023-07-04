@@ -71,7 +71,7 @@ const Auth = () => {
                             progress: undefined,
                             theme: "light"
                         });
-                    } else if (callback?.ok) {
+                    } else if (!callback?.error && callback?.ok) {
                         toast.success('Account created successfully!', {
                             position: "top-right",
                             autoClose: 3000,
@@ -130,7 +130,7 @@ const Auth = () => {
                             progress: undefined,
                             theme: "light"
                         });
-                    } else if (callback?.ok) {
+                    } else if (!callback?.error && callback?.ok) {
                         toast.success('Logged in successfuly!', {
                             position: "top-right",
                             autoClose: 3000,
@@ -170,7 +170,7 @@ const Auth = () => {
         signIn(action, { redirect: false })
             .then((callback) => {
                 if (callback?.error) {
-                    toast.error("Invalid Credentials", {
+                    toast.error('Invalid credentials!', {
                         position: "top-right",
                         autoClose: 3000,
                         hideProgressBar: false,
@@ -179,11 +179,9 @@ const Auth = () => {
                         draggable: true,
                         progress: undefined,
                         theme: "light"
-                    })
-                }
-
-                if (callback?.ok) {
-                    toast.success("Logged in successfully", {
+                    });
+                } else if (!callback?.error && callback?.ok) {
+                    toast.success('Logged in successfuly!', {
                         position: "top-right",
                         autoClose: 3000,
                         hideProgressBar: false,
@@ -195,8 +193,21 @@ const Auth = () => {
                     });
 
                     // Redirect to the previous page or a default route
-                    const callbackUrl = searchParams.get('callbackUrl') || '/'; // Use callbackUrl from query parameter if available
+                    // Use callbackUrl from query parameter if available
+                    const callbackUrl = searchParams.get('callbackUrl') || '/';
                     router.push(callbackUrl);
+
+                } else {
+                    toast.error('Invalid credentials!', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light"
+                    });
                 }
             })
             .finally(() => setIsLoading(false))

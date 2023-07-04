@@ -57,8 +57,7 @@ const Register: FC<RegisterProps> = ({
             progress: undefined,
             theme: "light"
           })
-        } else if (callback?.ok) {
-          closeAuthModal()
+        } else if (!callback?.error && callback?.ok) {
           toast.success("Account created successfully", {
             position: "top-right",
             autoClose: 3000,
@@ -68,11 +67,11 @@ const Register: FC<RegisterProps> = ({
             draggable: true,
             progress: undefined,
             theme: "light"
-          })
+          });
+          closeAuthModal()
           router.refresh()
-          
         } else {
-          toast.error('Invalid credentials!', {
+          toast.error("Invalid Credentials", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -81,11 +80,11 @@ const Register: FC<RegisterProps> = ({
             draggable: true,
             progress: undefined,
             theme: "light"
-          });
+          })
         }
       })
       .catch(() => {
-        toast.error("Something went wrong!")
+        toast.error("Account already taken!")
       })
       .finally(() => setIsLoading(false))
   }
@@ -96,7 +95,7 @@ const Register: FC<RegisterProps> = ({
     signIn(action, { redirect: false })
       .then((callback) => {
         if (callback?.error) {
-          toast("Invalid Credentials", {
+          toast.error("Invalid Credentials", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -106,7 +105,7 @@ const Register: FC<RegisterProps> = ({
             progress: undefined,
             theme: "light"
           })
-        } else if (callback?.ok) {
+        } else if (!callback?.error && callback?.ok) {
           toast.success("Account created successfully", {
             position: "top-right",
             autoClose: 3000,
@@ -116,12 +115,11 @@ const Register: FC<RegisterProps> = ({
             draggable: true,
             progress: undefined,
             theme: "light"
-          })
+          });
           closeAuthModal()
           router.refresh()
-
         } else {
-          toast.error('Invalid credentials!', {
+          toast.error("Invalid Credentials", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -130,7 +128,7 @@ const Register: FC<RegisterProps> = ({
             draggable: true,
             progress: undefined,
             theme: "light"
-          });
+          })
         }
       })
       .finally(() => setIsLoading(false))

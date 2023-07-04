@@ -2,8 +2,13 @@
 
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import noproduct from "@/assets/no-product.json";
+import { FC } from 'react';
 
-const ProductsNotFound = () => {
+interface ProductsNotFoundProps {
+    message: string;
+}
+
+const ProductsNotFound: FC<ProductsNotFoundProps> = ({ message }) => {
     return (
         <div className='w-full h-5/6 py-24 bg-white flex flex-col text-sm md:text-base font-semibold text-gray-900 justify-center items-center gap-3 rounded-lg'>
             <Player
@@ -14,7 +19,7 @@ const ProductsNotFound = () => {
             >
                 <Controls visible={false} />
             </Player>
-            You haven{`'`}t placed any orders
+            {message}
         </div>
     )
 }
