@@ -1,3 +1,5 @@
+// middleware not function. So putting it in utils for the moment
+
 import { withAuth } from "next-auth/middleware"
 import { NextResponse } from "next/server";
 

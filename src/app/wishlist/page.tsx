@@ -1,9 +1,16 @@
 import { getUserWishlistProducts } from '@/actions';
 import WishlistProduct from '@/components/wishlistProduct/WishlistProduct';
 import ProductsNotFound from '@/components/orders/ProductsNotFound';
+import getCurrentUser from '@/actions/getCurrentUser';
+import { redirect } from 'next/navigation';
 
 const page = async () => {
   const wishlist = await getUserWishlistProducts();
+  const user = await getCurrentUser()
+
+  if(!user.id) {
+    redirect("/auth?callbackUrl=wishlist")
+  }
   return (
     <div className='w-full px-2 md:px-7 lg:px-12 py-5 md:py-8'>
       {wishlist && wishlist.length > 0 ?
