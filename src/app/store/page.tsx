@@ -2,7 +2,7 @@ import { fetchAllProducts, getCategories } from '@/actions'
 import Categories from '@/components/store/Categories'
 import FilteredProducts from '@/components/store/FilteredProducts'
 import React from 'react'
-import Loading from '../loading';
+import Loading from './loading';
 
 interface CategoryProps {
     category: string;
