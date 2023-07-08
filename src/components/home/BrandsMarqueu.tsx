@@ -7,21 +7,21 @@ const BrandsMarqueu = () => {
     return (
         <Marquee
             autoFill
-            className='overflow-hidden shadow rounded-lg mt-12'
+            className='overflow-hidden shadow rounded-lg mt-7 sm:mt-12'
         >
-            <div
-                className='w-full flex items-center gap-20 bg-white mr-20'
-            >
-
+            <div className='w-full flex items-center gap-16 sm:gap-20 bg-white mr-20'>
                 {brands.map((brand: string, index: number) => (
-                    <Image
+                    <div
                         key={index}
-                        src={brand}
-                        alt="brand"
-                        width={100}
-                        height={100}
-                        className='object-contain'
-                    />
+                        className="relative w-20 h-20 sm:w-28 sm:h-28"
+                    >
+                        <Image
+                            src={brand}
+                            alt="brand"
+                            fill
+                            className='object-contain'
+                        />
+                    </div>
                 ))}
             </div>
         </Marquee>
