@@ -29,7 +29,7 @@ const Footer = () => {
         }, 3000)
     }
     return (
-        <div className='z-0 w-full bg-darkBlue py-10 px-3 md:px-20'>
+        <div className='z-0 w-full bg-darkBlue py-10 px-3 md:px-20 overflow-hidden'>
             <div className="w-full h-auto flex flex-col md:flex-row md:items-center justify-around pb-5 border-b border-gray-600 gap-4">
                 <div className="flex items-center gap-2 md:gap-3">
                     <EmailIcon className="w-4 h-4 md:w-7 md:h-7 text-white" />
@@ -58,7 +58,7 @@ const Footer = () => {
                         <li className='text-xs sm:text-sm'>Ms.390 st Island Random Location, 1111 United States</li>
                         <li className='text-xs sm:text-sm'>+12-3456-7890</li>
                         <li className='text-xs sm:text-sm'>Store@business.com</li>
-                        <li className='flex items-center gap-2'>
+                        <li className='flex items-center flex-wrap gap-2'>
                             <Link href="https://instagram.com" className='no-underline'>
                                 <p className='m-0 rounded-full cursor-pointer bg-gray-600 hover:bg-gradient-to-r hover:from-pink-500 hover:via-purple-500 hover:to-indigo-500'>
                                     <InstagramIcon className='w-3 sm:w-5 h-3 sm:h-5 m-2' />

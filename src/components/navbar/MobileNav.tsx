@@ -81,13 +81,13 @@ const MobileNav = () => {
                                             </div>
                                         </Link>
 
-                                        <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 cursor-pointer text-gray-500 hover:text-white">
-                                            <SettingsIcon className="w-5 h-5 cursor-pointer" />
+                                        <div className="w-full h-9 flex items-center gap-3 px-3 py-4 cursor-default text-gray-500">
+                                            <SettingsIcon className="w-5 h-5 cursor-default" />
                                             <span className="text-sm">Settings</span>
                                         </div>
 
-                                        <div className="w-full h-9 flex items-center gap-3 px-3 py-4 hover:bg-orange-500 cursor-pointer text-gray-500 hover:text-white">
-                                            <HelpIcon className="w-5 h-5 cursor-pointer" />
+                                        <div className="w-full h-9 flex items-center gap-3 px-3 py-4 cursor-default text-gray-500">
+                                            <HelpIcon className="w-5 h-5 cursor-default" />
                                             <span className="text-sm">Help</span>
                                         </div>
 
